@@ -6,6 +6,6 @@ class Seller < User
 	has_many :messages
 
 	def set_role
-		self.role = "Seller"
+		self.role = 2
 	end
 end
