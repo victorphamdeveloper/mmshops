@@ -1,0 +1,27 @@
+<h1>Listing seller_infos</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Location</th>
+    <th>No of likes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @seller_infos.each do |seller_info| %>
+  <tr>
+    <td><%= seller_info.user_id %></td>
+    <td><%= seller_info.location %></td>
+    <td><%= seller_info.no_of_likes %></td>
+    <td><%= link_to 'Show', seller_info %></td>
+    <td><%= link_to 'Edit', edit_seller_info_path(seller_info) %></td>
+    <td><%= link_to 'Destroy', seller_info, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Seller info', new_seller_info_path %>

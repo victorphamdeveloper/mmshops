@@ -1,4 +1,28 @@
 Mmshops::Application.routes.draw do
+  resources :messages
+
+
+  resources :liked_items
+
+
+  resources :orders
+
+
+  resources :line_items
+
+
+  resources :categories
+
+
+  resources :products
+
+
+  resources :seller_infos
+
+
+  resources :users
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
