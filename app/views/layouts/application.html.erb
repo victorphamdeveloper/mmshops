@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>sad</title>
+<title><%= full_title(yield(:title)) %></title>
 <%= stylesheet_link_tag "application", media: "all" %>
 <%= javascript_include_tag "application" %>
 <%= csrf_meta_tags %>
 <%= render 'layouts/shim' %>
 </head>
 <body>
+   
+  <%= render 'layouts/header' %>
   <div class="container">
-
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |key, value| %>
-        <!--<div class="alert alert-<%= key %>"><%= value %></div>-->
-        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
-      <% end %>
-      <%= yield %>
-
+    <div class="span12">
+      <h4>CATEGORIES</h4>
+    </div>
+  
+    <div class="row">
+      <%= render 'layouts/sidebar' %>
+        
+      <div class="span9">
+        <% flash.each do |key, value| %>
+          <!--<div class="alert alert-<%= key %>"><%= value %></div>-->
+          <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+        <% end %>
+        <%= yield %>
+      </div>
+    </div>
+      
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %>
     </div>
-  </div>
 </body>
 </html>

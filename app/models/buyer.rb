@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  role            :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class Buyer < User 
 	before_save :set_role
 
