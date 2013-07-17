@@ -26,8 +26,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
 
-    puts "jahbdhadgadbsajcfvsjabchsabjhbsfcdbsjahbdfjsbjdbshbcdjsvchsvchsdv"
-
 
     #respond_to do |format|
      # format.html # new.html.erb
@@ -45,11 +43,11 @@ class UsersController < ApplicationController
   def create
     
     role = params[:role]
-    if(role == 3){
+    if(role == 3)
       @user = Buyer.create(params[:user]) 
-    }else{
+    else
       @user = Seller.create(params[:user])
-    }
+    end
 
     if @user.save
       puts @user.class
