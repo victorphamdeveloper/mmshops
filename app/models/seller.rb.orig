@@ -1,0 +1,31 @@
+<<<<<<< HEAD
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  password_digest :string(255)
+#  role            :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+=======
+>>>>>>> Tho
+class Seller < User
+	before_save :set_role
+
+	has_one :seller_info, foreign_key: :user_id 
+	has_many :products, foreign_key: :user_id
+	has_many :line_items, through: :products
+
+	def set_role
+		self.role = 2
+	end
+<<<<<<< HEAD
+end
+=======
+end
+>>>>>>> Tho
