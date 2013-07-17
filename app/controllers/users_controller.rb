@@ -26,9 +26,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
 
-    puts "jahbdhadgadbsajcfvsjabchsabjhbsfcdbsjahbdfjsbjdbshbcdjsvchsvchsdv"
-
-
     #respond_to do |format|
      # format.html # new.html.erb
       #format.json { render json: @user }
@@ -43,19 +40,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    
-    role = params[:role]
-    if(role == 3){
-      @user = Buyer.create(params[:user]) 
-    }else{
-      @user = Seller.create(params[:user])
-    }
-
+    @user = User.create(params[:user]) 
+  
     if @user.save
-      puts @user.class
-      render 'new'
-    
-    
+      redirect_to @user
+    end
     
   end
 

@@ -11,17 +11,29 @@
    
   <%= render 'layouts/header' %>
   <div class="container">
-  
-    <div class="row">
-      <%= render 'layouts/sidebar' unless @skip_sidebar %>
-        
-      <div class="span9">
-        <% flash.each do |key, value| %>
-          <!--<div class="alert alert-<%= key %>"><%= value %></div>-->
-          <%= content_tag(:div, value, class: "alert alert-#{key}") %>
-        <% end %>
-        <%= yield %>
-      </div>
+     <div class="row">
+      
+      <% unless @skip_sidebar %>  
+        <%= render 'layouts/sidebar' %>
+
+        <div class="span9">
+          <% flash.each do |key, value| %>
+            <!--<div class="alert alert-<%= key %>"><%= value %></div>-->
+            <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+          <% end %>
+          <%= yield %>    
+        </div>
+      <% else %>
+        <div>
+          <div class="span8 offset2">
+          <% flash.each do |key, value| %>
+            <!--<div class="alert alert-<%= key %>"><%= value %></div>-->
+            <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+          <% end %>
+          <%= yield %>    
+          </div>
+        </div>
+      <% end %>
     </div>
       
     <%= render 'layouts/footer' %>

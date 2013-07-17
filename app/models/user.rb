@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   def set_default_role
   	# unless user's role is admin (default value = 1)
   	# user is buyer (value = 3)
-  	if self.role != nil
+  	if self.role == nil 
   		self.role = 3 
   	end
   end
