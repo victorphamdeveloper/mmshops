@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717151645) do
+ActiveRecord::Schema.define(:version => 20130718124603) do
 
   create_table "categories", :force => true do |t|
     t.integer  "parent_id"
@@ -81,8 +81,10 @@ ActiveRecord::Schema.define(:version => 20130717151645) do
     t.integer  "role"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.string   "remember_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

@@ -12,7 +12,8 @@
 #
 
 class User < ActiveRecord::Base
-  before_save :set_default_role	
+  
+  before_save :set_default_role, :create_remember_token	
   before_save { |user| user.email = email.downcase }
   
   attr_accessible :email, :name, :password, :password_confirmation , :role
@@ -35,4 +36,10 @@ class User < ActiveRecord::Base
   		self.role = 3 
   	end
   end
+
+  private
+
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
 end
