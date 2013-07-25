@@ -1,12 +1,32 @@
 <h4>CATEGORIES</h4>
+<% c = Category.roots %>
 <div class="span3">
   <div>
-    <ul id="category-list">
-      <li class="active"><a href="https://dl.dropboxusercontent.com/u/25122693/MmShops/index.html#women-fashion" data-toggle="tab"><i class="icon-chevron-right"></i> Womens' Fashion</a></li>
-      <li><a href="https://dl.dropboxusercontent.com/u/25122693/MmShops/index.html#women-fashion" data-toggle="tab"><i class="icon-chevron-right"></i> Electronics</a></li>
-      <li><a href="https://dl.dropboxusercontent.com/u/25122693/MmShops/index.html#women-fashion" data-toggle="tab"><i class="icon-chevron-right"></i> Computers &amp; Electronics</a></li>
-      <li class=""><a href="https://dl.dropboxusercontent.com/u/25122693/MmShops/index.html#phone-accessory" data-toggle="tab"><i class="icon-chevron-right"></i> Phones' Accessory</a></li>
-      <li class=""><a href="https://dl.dropboxusercontent.com/u/25122693/MmShops/index.html#phone-accessory" data-toggle="tab"><i class="icon-chevron-right"></i> Cars' Accessory</a></li>
+  	<div id="dl-menu" class="dl-menuwrapper">
+						<button class="dl-trigger">Open Menu</button>
+    <ul id="category-list" class="dl-menu">
+    	<% Category.roots.each do |root| %> 
+      	<li class="cat-<%= root.id %>"><a href="#"> <%= root.name %></a>
+      		<ul class="dl-submenu">
+      		<% root.children.each do |child| %>
+      			<li class="cat-<%= child.id %>"><a href="#"><%= child.name %></a>
+      				<ul class="dl-submenu">
+      					<% child.children.each do |leaf| %>
+      					<li class="cat-<%= leaf.id %>"><a href="#"><%= leaf.name %></a></li>
+      					<% end %>
+      				</ul>
+      			</li>
+      			<% end %>
+      		</ul>
+      	</li>
+      <% end %>
     </ul>
+  	</div>
   </div>
 </div>
+<script>
+			$(function() {
+				$( '#dl-menu' ).dlmenu();
+			});
+		</script>
+		

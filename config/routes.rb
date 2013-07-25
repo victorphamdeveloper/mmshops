@@ -1,5 +1,5 @@
 Mmshops::Application.routes.draw do
-  resources :messages, :only => [:new, :create, :delete, :show]
+  resources :messages, :only => [:index, :new, :create, :destroy, :show]
 
   resources :liked_items
 

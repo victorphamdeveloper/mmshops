@@ -1,5 +1,31 @@
-<h1>New product</h1>
+<% provide(:title, "Sell your new product with us") %>
 
-<%= render 'form' %>
+<div class="row">
+	<div class="span8 offset1 input-form">
+		<h1>New Product</h1>
+		<%= form_for(@product) do |f| %>
 
-<%= link_to 'Back', products_path %>
+			<%= f.label :name %>
+			<%= f.text_field :name %>
+
+			<%= f.label :description %>
+			<%= f.text_area :description %>
+		
+			<%= f.label :price %>
+    	<%= f.text_field :price %>
+
+			<%= f.label :location %>
+    	<%= f.text_field :location %>
+    	
+			<%= f.label :category_id %>
+    	<%= f.number_field :category_id %>
+			
+			<br/>
+
+			<%= f.submit "Sell my product", class: "btn btn-large btn-primary signup-button" %>
+		<% end %>
+	</div>
+</div>
+
+
+

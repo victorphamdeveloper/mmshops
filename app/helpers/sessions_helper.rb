@@ -9,7 +9,20 @@ module SessionsHelper
 	end
 	
 	def current_user
-		@current_user ||= User.find_by_remember_token(cookies[:remember_token])
+		return @current_user if !@current_user.nil?
+
+		user = User.find_by_remember_token(cookies[:remember_token])
+		if !user.nil?
+			if user.role == 2
+				user = user.becomes(Seller)
+			elsif user.role == 1
+				user = user.becomes(Admin)
+			elsif user.role == 3
+				user = user.becomes(Buyer)
+			end
+		end
+		@current_user ||= user
+		
 	end
 
 	def current_user?(user)
@@ -33,5 +46,19 @@ module SessionsHelper
 	def store_location
 		session[:return_to] = request.url
 	end
+	
+	def signed_in_user
+    unless signed_in?
+			store_location
+      redirect_to signin_url, notice: "Please sign in."
+    end
+  end
+
+  def filter_seller
+    unless is_seller(current_user)
+      redirect_to root_url, notice: "You must be a seller to do this."
+    end
+  end
+
 	
 end

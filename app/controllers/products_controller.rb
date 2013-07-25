@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_filter :signed_in_user, only: [:create, :update, :destroy]
+  before_filter :filter_seller, only: [:create, :update]
   # GET /products
   # GET /products.json
   def index
@@ -37,17 +39,15 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(params[:product])
-
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render json: @product, status: :created, location: @product }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    @seller = Seller.find_by_email(current_user.email)
+    @product = @seller.products.create(params[:product])
+    if @product.save
+      flash[:success] = "You created a new product"
+      redirect_to root_url
+    else
+      render 'new'
     end
+
   end
 
   # PUT /products/1
