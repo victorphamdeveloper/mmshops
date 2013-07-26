@@ -1,6 +1,6 @@
 
-<h1>Chat</h1>
 
+<h1>Chat</h1>
 <ul id="chat">
   <%= render @messages %>
 </ul>
@@ -10,7 +10,10 @@
   <%= f.hidden_field :receiver_id %>
 
   <%= f.text_field :content %>
-  <%= f.submit "Send" %>
+  <%= f.submit "Send", onClick: "$('#chat').scrollTop($('ul li.message').last().position().top + $('ul li.message').last().height());" %>
 <% end %>
 
 <%= subscribe_to "/messages/new" %>
+<script>
+$('#chat').scrollTop($('ul > li.message').last().position().top + $('ul > li.message').last().height());
+</script>
