@@ -1,6 +1,14 @@
+
 <% provide(:title, "Sell your new product with us") %>
 
+<script>
+$(ul.dl-submenu > li).click(function(){
+  
+});
+</script>
+  <div class="span4 offset1 input-form">
 <div class="row">
+
 	<div class="span8 offset1 input-form">
 		<h1>New Product</h1>
 		<%= form_for(@product) do |f| %>
@@ -19,6 +27,14 @@
     	
 			<%= f.label :category_id %>
     	<%= f.number_field :category_id %>
+
+<script>
+      $(function() {
+        $( '#dl-menu' ).dlmenu();
+      });
+
+    </script>
+
 			
 			<br/>
 

@@ -4,7 +4,11 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    if params[:category_id].nil?
+      @products = Product.all
+    else
+      @products = Product.where("category_id = ?",params[:category_id])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,7 +31,8 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     @product = Product.new
-    @skip_sidebar = true
+    render :layout => "new_product"
+
 
   end
 
@@ -39,13 +44,12 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @seller = Seller.find_by_email(current_user.email)
-    @product = @seller.products.create(params[:product])
+    @product = current_user.products.create(params[:product])
     if @product.save
       flash[:success] = "You created a new product"
       redirect_to root_url
     else
-      render 'new'
+      render :layout => "new_product"
     end
 
   end

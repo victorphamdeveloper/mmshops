@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= full_title(yield(:title)) %></title>
+<%= stylesheet_link_tag "application", media: "all" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+<script>
+
+  $(document).ready(function() {
+  	var previousChosen = null;
+  	$("ul.dl-submenu > li").click(function() {
+			$("#product_category_id").val(($(this).attr("class").substr(4)));
+			$(this).css('background-color','red');
+			if (previousChosen != null){
+				previousChosen.css('background-color','');
+			}
+			previousChosen = $(this);
+			console.log(previousChosen);
+		});
+  });
+
+</script>
+<%= render 'layouts/shim' %>
+</head>
+<body>
+<% provide(:title, "Sell your new product with us") %>   
+  <%= render 'layouts/header' %>
+
+<div class="container">
+
+<div class="row">
+	<h4>Select your product category here</h4>
+		<% c = Category.roots %>
+		<div class="span3">
+  		<div>
+  			<div id="dl-menu" class="dl-menuwrapper">
+					<button class="dl-trigger">Open Menu</button>
+    			<ul id="category-list" class="dl-menu">
+    				<% Category.roots.each do |root| %> 
+      				<li class="cat-<%= root.id %>"><a href="#"> <%= root.name %></a>
+      				<ul class="dl-submenu">
+      					<% root.children.each do |child| %>
+      						<li class="cat-<%= child.id %>"><a href="#"><%= child.name %></a>
+      						<ul class="dl-submenu">
+      							<% child.children.each do |leaf| %>
+      								<li class="cat-<%= leaf.id %>"><a href="#"><%= leaf.name %></a></li>
+      							<% end %>
+      						</ul>
+      						</li>
+      					<% end %>
+      				</ul>
+      				</li>
+      			<% end %>
+    			</ul>
+  			</div>
+  		</div>
+		</div>
+		<script>
+			$(function() {
+				$( '#dl-menu' ).dlmenu();
+			});
+		</script>
+		
+
+		<div class="span9 input-form">
+			<h1>New Product</h1>
+			<%= form_for(@product) do |f| %>
+
+				<%= f.label :name %>
+				<%= f.text_field :name %>
+
+				<%= f.label :description %>
+				<%= f.text_area :description %>
+			
+				<%= f.label :price %>
+	    	<%= f.text_field :price %>
+
+				<%= f.label :location %>
+	    	<%= f.text_field :location %>
+	    	
+				<%= f.label :category_id %>
+	    	<%= f.number_field :category_id %>
+				
+				<br/>
+
+				<%= f.submit "Sell my product", class: "btn btn-large btn-primary signup-button" %>
+			<% end %>
+		</div>
+</div>
+</div>
+	<%= render 'layouts/footer' %>
+</body>
+</html>
+
+

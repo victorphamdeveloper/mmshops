@@ -115,11 +115,10 @@
 			} );
 
 			this.$menuitems.on( 'click.dlmenu', function( event ) {
-				
 				event.stopPropagation();
 
 				var $item = $(this),
-					$submenu = $item.children( 'ul.dl-submenu' );
+				$submenu = $item.children( 'ul.dl-submenu' );
 
 				if( $submenu.length > 0 ) {
 
@@ -153,7 +152,6 @@
 			} );
 
 			this.$back.on( 'click.dlmenu', function( event ) {
-				
 				var $this = $( this ),
 					$submenu = $this.parents( 'ul.dl-submenu:first' ),
 					$item = $submenu.parent(),
@@ -179,6 +177,7 @@
 					
 					var $subview = $this.parents( '.dl-subview:first' );
 					if( $subview.is( 'li' ) ) {
+
 						$subview.addClass( 'dl-subviewopen' );
 					}
 					$subview.removeClass( 'dl-subview' );

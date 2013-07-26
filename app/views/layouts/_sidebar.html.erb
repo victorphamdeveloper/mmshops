@@ -12,7 +12,8 @@
       			<li class="cat-<%= child.id %>"><a href="#"><%= child.name %></a>
       				<ul class="dl-submenu">
       					<% child.children.each do |leaf| %>
-      					<li class="cat-<%= leaf.id %>"><a href="#"><%= leaf.name %></a></li>
+      					
+                <li><%= link_to leaf.name, products_path(category_id: leaf.id), class: "cat-#{leaf.id}" %></li>
       					<% end %>
       				</ul>
       			</li>
