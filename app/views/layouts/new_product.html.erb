@@ -65,7 +65,7 @@
 
 		<div class="span9 input-form">
 			<h1>New Product</h1>
-			<%= form_for(@product) do |f| %>
+			<%= form_for(@product, :html => { :multipart => true }) do |f| %>
 
 				<%= f.label :name %>
 				<%= f.text_field :name %>
@@ -81,6 +81,18 @@
 	    	
 				<%= f.label :category_id %>
 	    	<%= f.number_field :category_id %>
+
+	    	<%= f.label :avatar, "Select an avatar for the product" %>
+	    	<%= f.file_field :avatar %>
+				
+				<%= f.label :avatar, "Select images for the product" %>
+				<%= f.fields_for :product_images do |product_image| %>
+
+    			<% if product_image.object.new_record? %>
+      			<%= product_image.file_field :image %>
+    			<% end %>
+
+  			<% end %>
 				
 				<br/>
 

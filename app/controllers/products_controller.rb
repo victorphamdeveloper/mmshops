@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :update, :destroy]
   before_filter :filter_seller, only: [:create, :update]
+  before_filter :seller_of_this_product, only:  [:update, :edit, :destroy]
   # GET /products
   # GET /products.json
   def index
@@ -31,6 +32,7 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     @product = Product.new
+    5.times { @product.product_images.build }
     render :layout => "new_product"
 
 
@@ -38,7 +40,9 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-    @product = Product.find(params[:id])
+    @product = Product.includes(:product_images).find(params[:id])
+    
+    render :layout => "edit_product"
   end
 
   # POST /products
@@ -81,4 +85,12 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def seller_of_this_product
+    @product = Product.find(params[:id])
+    unless @product.user_id == current_user.id
+      redirect_to root_url, notice: "You are not owner of this product"
+    end    
+  end
+
 end

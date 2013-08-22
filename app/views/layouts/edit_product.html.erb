@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title><%= full_title(yield(:title)) %></title>
+<%= stylesheet_link_tag "application", media: "all" %>
+<%= javascript_include_tag "application" %>
+<%= csrf_meta_tags %>
+<script>
+
+  $(document).ready(function() {
+  	var previousChosen = null;
+  	$("ul.dl-submenu > li").click(function() {
+			$("#product_category_id").val(($(this).attr("class").substr(4)));
+			$(this).css('background-color','red');
+			if (previousChosen != null){
+				previousChosen.css('background-color','');
+			}
+			previousChosen = $(this);
+			console.log(previousChosen);
+		});
+  });
+
+</script>
+<%= render 'layouts/shim' %>
+</head>
+<body>
+<% provide(:title, "Sell your new product with us") %>   
+  <%= render 'layouts/header' %>
+
+<div class="container">
+
+<div class="row">
+	<h4>Select your product category here</h4>
+		<% c = Category.roots %>
+		<div class="span3">
+  		<div>
+  			<div id="dl-menu" class="dl-menuwrapper">
+					<button class="dl-trigger">Open Menu</button>
+    			<ul id="category-list" class="dl-menu">
+    				<% Category.roots.each do |root| %> 
+      				<li class="cat-<%= root.id %>"><a href="#"> <%= root.name %></a>
+      				<ul class="dl-submenu">
+      					<% root.children.each do |child| %>
+      						<li class="cat-<%= child.id %>"><a href="#"><%= child.name %></a>
+      						<ul class="dl-submenu">
+      							<% child.children.each do |leaf| %>
+      								<li class="cat-<%= leaf.id %>"><a href="#"><%= leaf.name %></a></li>
+      							<% end %>
+      						</ul>
+      						</li>
+      					<% end %>
+      				</ul>
+      				</li>
+      			<% end %>
+    			</ul>
+  			</div>
+  		</div>
+		</div>
+		<script>
+			$(function() {
+				$( '#dl-menu' ).dlmenu();
+			});
+		</script>
+		
+
+		<div class="span9 input-form">
+			<h1>Edit Product</h1>
+			<%= form_for(@product, :html => { :multipart => true }) do |f| %>
+
+				<%= f.label :name %>
+				<%= f.text_field :name %>
+
+				<%= f.label :description %>
+				<%= f.text_area :description %>
+			
+				<%= f.label :price %>
+	    	<%= f.text_field :price %>
+
+				<%= f.label :location %>
+	    	<%= f.text_field :location %>
+	    	
+				<%= f.label :category_id %>
+	    	<%= f.number_field :category_id %>
+
+	    	<%= f.label :avatar, "Select an image for the product" %>
+	    	<%= image_tag @product.avatar.url(:thumb) %>
+	    	<%= f.file_field :avatar %>
+
+	    	<!--<% @product.product_images.each do |photo| %>
+  				<%= image_tag photo.image.url(:thumb) %>-->
+				<!--<% end %>-->
+
+				<h1>ABCD</h1>
+
+				<%= f.label :product_images, "Edit images for the product" %>
+					<%= debug(@product.product_images) %>
+					
+	    	<% f.fields_for :product_images do |b| %>
+      				<% b.text_field :product_id %>
+      				
+	
+        
+  			<% end %>
+				
+				<br/>
+
+				<%= f.submit "Save", class: "btn btn-large btn-primary signup-button" %>
+			<% end %>
+		</div>
+</div>
+<%= render 'layouts/footer' %>
+<%= debug(params) if Rails.env.development? %>
+</div>
+	
+
+</body>
+</html>
+
+
+	

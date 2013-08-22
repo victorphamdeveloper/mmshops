@@ -10,11 +10,13 @@ gem 'faker', '1.0.1'
 gem 'ancestry'
 gem 'private_pub'
 gem 'thin'
+gem "paperclip", "~> 3.0"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 group :development, :test do 
 	gem 'sqlite3', '1.3.5'
+	gem 'pry'
 end
 
 group :development do

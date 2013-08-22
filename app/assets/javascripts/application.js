@@ -16,9 +16,34 @@
 //= require private_pub
 //= require_tree .
 
+$(document).ready(function(){
+	/*var fade = function (node) {
+		var level = 1;
+	
+		var step = function () {
+			var hex = level.toString(16); 
+			node.style.backgroundColor = '#FFFF' + hex + hex; 
+			if (level < 15) {
+				level += 1;
+				setTimeout(step, 100);
+			}
+		};
+	
+		setTimeout(step, 100);
+  };
 
-
-
+  fade(document.body);*/
+  var add_the_handlers = function (nodes) {
+		var i;
+    for (i = 0; i < nodes.length; i += 1) {
+      nodes[i].onclick = function (e) {
+				alert(i); 
+			};
+		} 
+	};
+	add_the_handlers(document.body);
+});
+	
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-cssanimations-csstransitions-touch-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load
  */

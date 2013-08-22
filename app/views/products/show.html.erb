@@ -29,6 +29,10 @@
   <b>No of likes:</b>
   <%= @product.no_of_likes %>
 </p>
+<% @product.product_images.each do |photo| %>
+  <%= image_tag photo.image.url(:original) %>
+
+<% end %>
 
 
 <%= link_to 'Edit', edit_product_path(@product) %> |

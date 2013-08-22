@@ -1,34 +1,15 @@
 <% provide(:title, 'All users') %> 
 <h1>Listing products</h1>
 
-<table>
-  <tr>
-    <th>User</th>
-    <th>Category</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>No of likes</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
+<div class="row products-wrapper">
 <% @products.each do |product| %>
-  <tr>
-    <td><%= product.user_id %></td>
-    <td><%= product.category_id %></td>
-    <td><%= product.name %></td>
-    <td><%= product.price %></td>
-    <td><%= product.description %></td>
-    <td><%= product.no_of_likes %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <%= link_to product do %>
+    <div class="product-wrapper span2">
+        <%= image_tag product.avatar.url(:medium) %>
+        <div>
+            <span><%= product.name %></span>
+            <span><%= product.price %></span>
+        </div>
+    </div>
+  <% end %>
 <% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Product', new_product_path %>
