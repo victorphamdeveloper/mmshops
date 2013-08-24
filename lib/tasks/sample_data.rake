@@ -26,6 +26,6 @@ namespace :db do
                   password: password,
                   password_confirmation: password,
                   role: 2)
-    end 
+    end
   end
 end

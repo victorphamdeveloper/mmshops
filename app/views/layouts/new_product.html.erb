@@ -77,7 +77,7 @@
 	    	<%= f.text_field :price %>
 
 				<%= f.label :location %>
-	    	<%= f.text_field :location %>
+	    	<%= select("product", "location", City.all.collect { |c| [ c.name, c.name ]}, { :include_blank => true }) %>
 	    	
 				<%= f.label :category_id %>
 	    	<%= f.number_field :category_id %>
