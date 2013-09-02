@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   before_save :set_default_role, :create_remember_token	
   before_save { |user| user.email = email.downcase }
   
-  attr_accessible :email, :name, :password, :password_confirmation, :role
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level
   has_secure_password 
 
   has_many :sended_messages, class_name: "Message", foreign_key: :sender_id, dependent: :destroy

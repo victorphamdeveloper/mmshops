@@ -20,5 +20,6 @@ class Seller < User
 
 	def set_role
 		self.role = 2
+		self.seller_level = 'normal'
 	end
 end

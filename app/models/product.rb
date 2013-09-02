@@ -28,4 +28,15 @@ class Product < ActiveRecord::Base
   validates :location, presence: true
   validates :category_id, presence: true
   validates :user_id, presence: true
+  validate :product_limit_validates, on: :create
+
+  def product_limit_validates
+    return if seller.seller_level == 'elite'
+    if seller.seller_level == 'normal' && seller.products.count > 20
+      errors.add("Too many products for a Normal user (maximum is 20)")
+    elsif seller.seller_level == 'premium' && seller.products.count > 100
+      errors.add("Too many products for a Premium user (maximum is 100)")
+    end
+  end
+          
 end
