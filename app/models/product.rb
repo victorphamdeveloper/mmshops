@@ -32,10 +32,10 @@ class Product < ActiveRecord::Base
 
   def product_limit_validates
     return if seller.seller_level == 'elite'
-    if seller.seller_level == 'normal' && seller.products.count > 20
-      errors.add("Too many products for a Normal user (maximum is 20)")
+    if seller.seller_level == 'normal' && seller.products.count > 3
+      errors[:base] << "Too many products for a Normal user (maximum is 20)"
     elsif seller.seller_level == 'premium' && seller.products.count > 100
-      errors.add("Too many products for a Premium user (maximum is 100)")
+      errors[:base] << "Too many products for a Premium user (maximum is 100)"
     end
   end
           

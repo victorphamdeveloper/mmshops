@@ -58,7 +58,12 @@ class ProductsController < ApplicationController
       flash[:success] = "You created a new product"
       redirect_to root_url
     else
-      render :layout => "new_product"
+      err_message = ""
+      @product.errors.full_messages.each do |msg|
+        err_message += msg
+      end
+      flash[:error] = err_message
+      redirect_to root_url
     end
 
   end
