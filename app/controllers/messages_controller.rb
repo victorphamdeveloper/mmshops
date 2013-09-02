@@ -35,9 +35,13 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-
     @message = Message.create!(params[:message])
-
+    
+    if @message.sender.id < @message.receiver.id
+      @channel = "/messages/new/private/#{@message.sender.id}/#{@message.receiver.id}"
+    else 
+      @channel = "/messages/new/private/#{@message.receiver.id}/#{@message.sender.id}"
+    end  
   end
 
   # PUT /messages/1

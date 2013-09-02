@@ -13,7 +13,12 @@
   <%= f.submit "Send", onClick: "$('#chat').scrollTop($('ul li.message').last().position().top + $('ul li.message').last().height());" %>
 <% end %>
 
-<%= subscribe_to "/messages/new" %>
+<% if current_user.id < params[:receiver_id].to_i %>
+	<%= subscribe_to "/messages/new/private/#{current_user.id}/#{params[:receiver_id]}" %>
+<% else %>
+	<%= subscribe_to "/messages/new/private/#{params[:receiver_id]}/#{current_user.id}" %>
+<% end %>
+
 <script>
 $('#chat').scrollTop($('ul > li.message').last().position().top + $('ul > li.message').last().height());
 </script>
