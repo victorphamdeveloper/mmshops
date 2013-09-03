@@ -3,6 +3,10 @@ class MessagesController < ApplicationController
   # GET /messages.json
   def index
     @messages = Message.where("(sender_id = ? and receiver_id = ?) or (sender_id = ? and receiver_id = ?)", current_user, params[:receiver_id], params[:receiver_id], current_user)
+    if(@messages == nil)
+      current_user.conversations.create(sender_id: current_user, receiver_id: params[:receiver_id])
+    end
+
   end
 
   # GET /messages/1 
@@ -19,11 +23,16 @@ class MessagesController < ApplicationController
   # GET /messages/new
   # GET /messages/new.json
   def new
-    root = Message.where("sender_id = ? and ancestry = ?", [current_user, params[:receiver_id]], "")
-    if root == nil
-      @message = current_user.sended_messages.new(receiver_id: params[:receiver_id])
+    c = Conversation.where("(sender_id = ? and receiver_id = ?) or (sender_id = ? and receiver_id = ?)", current_user, params[:receiver_id], params[:receiver_id], current_user)
+    if c == nil
+      #Initiate new conversation with this person
+      puts "adabvfaadvagdvad"
+      c = current_user.conversations.create(sender_id: current_user, receiver_id: params[:receiver_id])
+      c.messages.new(sender_id: current_user, receiver_id: params[:receiver_id])
     else
-      @message = current_user.sended_messages.new(receiver_id: params[:receiver_id], ancestry: leap)      
+      puts "pmcnxbqwjruncjaks"
+
+      c.messages.new(sender_id:current_user, receiver_id: params[:receiver_id])
     end
   end
 
@@ -35,7 +44,16 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.create!(params[:message])
+    c = Conversation.where("(sender_id = ? and receiver_id = ?) or (sender_id = ? and receiver_id = ?)", current_user, params[:message][:receiver_id].to_i, params[:message][:receiver_id].to_i, current_user)
+    
+    if c.blank?
+      #Initiate new conversation with this person
+      puts "adabvfaadvagdvad"
+      c = Conversation.create(sender_id: params[:message][:sender_id], receiver_id: params[:message][:receiver_id])
+      @message = c.messages.create!(params[:message])
+    else
+      @message = c.first.messages.create!(params[:message])
+    end
     
     if @message.sender.id < @message.receiver.id
       @channel = "/messages/new/private/#{@message.sender.id}/#{@message.receiver.id}"

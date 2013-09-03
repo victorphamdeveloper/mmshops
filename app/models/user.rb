@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level
   has_secure_password 
 
-  has_many :sended_messages, class_name: "Message", foreign_key: :sender_id, dependent: :destroy
-  has_many :received_messages, class_name: "Message", foreign_key: :receiver_id
+  has_many :sended_conversations, class_name: "Conversation", foreign_key: :sender_id
+  has_many :received_conversations, class_name: "Conversation", foreign_key: :receiver_id
 
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
