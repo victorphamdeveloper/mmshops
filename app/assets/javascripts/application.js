@@ -33,6 +33,13 @@ $(document).ready(function(){
   };
 
   fade(document.body);*/
+  	var x = document.getElementById("city_name");
+	x.onchange = function () {	
+		window.location.href = "/products?city=" + this.value;
+  	};
+  function alert_me_test(){
+  
+  }
   var add_the_handlers = function (nodes) {
 		var i;
     for (i = 0; i < nodes.length; i += 1) {
@@ -43,6 +50,7 @@ $(document).ready(function(){
 	};
 	add_the_handlers(document.body);
 });
+
 	
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD
  * Build: http://modernizr.com/download/#-cssanimations-csstransitions-touch-shiv-cssclasses-prefixed-teststyles-testprop-testallprops-prefixes-domprefixes-load

@@ -11,6 +11,12 @@ class ProductsController < ApplicationController
       @products = Product.where("category_id = ?",params[:category_id])
     end
 
+    if params[:city].nil?
+      @products = Product.all
+    else
+      @products = Product.where("location = ?",params[:city])
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }

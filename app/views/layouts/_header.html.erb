@@ -8,11 +8,7 @@
 								<li>
 									<div id="city-wrapper">
 										<label for="city">Choose your city</label>
-										<select name="city">
-											<option>Yangon</option>
-											<option>Mandalay</option>
-											<option>Naypyidaw</option>
-										</select>
+										<%= select("city", "name", City.all.collect {|c| [ c.name, c.name ] }, { :include_blank => true }) %>
 									</div>				
 								</li>
 								<li>
