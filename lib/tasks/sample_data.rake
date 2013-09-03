@@ -25,7 +25,8 @@ namespace :db do
                   email: email,
                   password: password,
                   password_confirmation: password,
-                  role: 2)
+                  role: 2,
+                  seller_level: "normal")
     end
   end
 end

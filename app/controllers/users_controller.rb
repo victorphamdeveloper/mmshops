@@ -43,7 +43,9 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.create(params[:user]) 
-  
+    if @user.role == 2
+      @user.seller_level = 'normal'
+    end
     if @user.save
       sign_in @user
       flash[:succeess] = "Sign up successfully"      
@@ -58,7 +60,6 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated"
       sign_in @user

@@ -17,7 +17,13 @@
 
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation %>
+
+			<%= f.label :role, "Account type" %>
 			
+	    	<%= select("user", "role", [["seller",2],["buyer",3]], html_options: {:class => "select-box"} ) %>
+	    	
+			<br />
+
 			<br/>
 
 			<%= f.submit "Create my account", class: "btn btn-large btn-primary signup-button" %>

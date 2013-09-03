@@ -13,7 +13,9 @@
  *= require_self
  *= require_tree .
  */
-
+#user_role{
+	min-height: 40px;
+}
 /* Common styles of menus */
 
 .dl-menuwrapper {
