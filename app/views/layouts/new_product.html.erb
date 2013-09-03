@@ -24,6 +24,7 @@
 <%= render 'layouts/shim' %>
 </head>
 <body>
+
 <% provide(:title, "Sell your new product with us") %>   
   <%= render 'layouts/header' %>
 
@@ -66,7 +67,6 @@
 		<div class="span9 input-form">
 			<h1>New Product</h1>
 			<%= form_for(@product, :html => { :multipart => true }) do |f| %>
-				<%= render 'shared/product_error_messages', object: f.object %>
 				<%= f.label :name %>
 				<%= f.text_field :name %>
 

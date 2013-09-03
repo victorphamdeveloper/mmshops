@@ -38,14 +38,16 @@ class ProductsController < ApplicationController
   # GET /products/new.json
   def new
     @product = Product.new
-    if current_user.seller_level == 'normal'
+
+    @product.no_of_likes = 0
+    if (current_user.seller_level == 'normal')
       2.times { @product.product_images.build }
-    elsif current_user.seller_level == 'premium'
+    elsif (current_user.seller_level == 'premium')
       5.times { @product.product_images.build }      
-    elsif current_user.seller_level == 'elite'
+    elsif (current_user.seller_level == 'elite')
       10.times { @product.product_images.build }      
     end
-    render :layout => "new_product"
+    render layout: "new_product"
 
   end
 

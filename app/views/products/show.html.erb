@@ -1,39 +1,46 @@
 <p id="notice"><%= notice %></p>
+<div class="span4 product_show">
+  <%= image_tag @product.avatar.url(:medium) %>
+  <% @product.product_images.each do |photo| %>
+    <%= image_tag photo.image.url(:thumb) %>
+  <% end %>
+</div>
+<div class="span4">
+  <p>
+    <b>Name:</b>
+    <%= @product.name %>
+  </p>
+  <p>
+    <b>Price:</b>
+    <%= @product.price %>
+  </p>
+  <p>
+    <b>Description:</b>
+    <%= @product.description %>
+  </p>
+  <p>
+    <b>No of likes:</b>
+    <%= @product.no_of_likes %>
+  </p>
+</div>
 
-<p>
+<!--<p>
   <b>User:</b>
   <%= @product.user_id %>
 </p>
 
-<p>
-  <b>Category:</b>
-  <%= @product.category_id %>
-</p>
 
-<p>
-  <b>Name:</b>
-  <%= @product.name %>
-</p>
 
-<p>
-  <b>Price:</b>
-  <%= @product.price %>
-</p>
 
-<p>
-  <b>Description:</b>
-  <%= @product.description %>
-</p>
 
-<p>
-  <b>No of likes:</b>
-  <%= @product.no_of_likes %>
-</p>
+
 <% @product.product_images.each do |photo| %>
   <%= image_tag photo.image.url(:original) %>
 
 <% end %>
-
-
+-->
+<!--
+<br>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+-->
