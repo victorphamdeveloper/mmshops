@@ -13,7 +13,7 @@
  *= require_self
  *= require_tree .
  */
-#user_role{
+#user_role, #product_location{
 	min-height: 40px;
 }
 /* Common styles of menus */

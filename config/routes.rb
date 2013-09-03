@@ -1,4 +1,7 @@
 Mmshops::Application.routes.draw do
+  resources :likes
+
+
   resources :conversations
 
 

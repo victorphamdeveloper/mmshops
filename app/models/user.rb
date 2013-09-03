@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   has_many :sended_conversations, class_name: "Conversation", foreign_key: :sender_id
   has_many :received_conversations, class_name: "Conversation", foreign_key: :receiver_id
 
+  has_many :likes, foreign_key: "user_id"
+  has_many :like_products, class_name: "Product", through: :likes, source: "product"
+
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }

@@ -21,6 +21,8 @@ class Product < ActiveRecord::Base
   has_many :product_images, dependent: :destroy
   accepts_nested_attributes_for :product_images, :allow_destroy => true
 
+  has_many :likes, foreign_key: "product_id"
+  has_many :like_users, class_name: "User", through: :likes, source: "user"
 
   attr_accessible :category_id, :description, :name, :no_of_likes, :price, :user_id, :location, :avatar, :product_images_attributes
 

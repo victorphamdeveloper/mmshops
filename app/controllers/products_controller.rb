@@ -39,7 +39,6 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
 
-    @product.no_of_likes = 0
     if (current_user.seller_level == 'normal')
       2.times { @product.product_images.build }
     elsif (current_user.seller_level == 'premium')
@@ -62,6 +61,8 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = current_user.products.create(params[:product])
+    @product.no_of_likes = 0
+
     if @product.save
       flash[:success] = "You created a new product"
       redirect_to root_url

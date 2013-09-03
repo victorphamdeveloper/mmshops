@@ -78,6 +78,10 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def like?(product)
+    likes.find_by_product_id(product.id)
+  end
+
   private
     def admin_user
       redirect_to root_path, notice: "You must be admin to do this." unless is_admin(current_user)
