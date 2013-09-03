@@ -14,7 +14,7 @@
   <tr>
     <td><%= User.find(conversation.sender_id).name %></td>
     <td><%= User.find(conversation.receiver_id).name %></td>
-    <td><%= Message.where("sender_id = ? and receiver_id = ?",conversation.sender_id, conversation.receiver_id).last.content %></td>
+    <td><%= Message.where("(sender_id = ? and receiver_id = ?) or (sender_id = ? and receiver_id = ?)",conversation.sender_id, conversation.receiver_id, conversation.receiver_id, conversation.sender_id).last.content %></td>
     <% if conversation.sender_id != current_user.id %>
       <td><%= link_to 'Chat', messages_path(receiver_id: conversation.sender_id) %></td>
     <% else %>  
