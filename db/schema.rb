@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903135458) do
+ActiveRecord::Schema.define(:version => 20130904085846) do
+
+  create_table "carts", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -35,14 +40,6 @@ ActiveRecord::Schema.define(:version => 20130903135458) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "like_records", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "product_id"
-    t.string   "integer"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "liked_items", :force => true do |t|
     t.integer  "user_id"
     t.integer  "product_id"
@@ -64,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130903135458) do
     t.integer  "quantity"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "cart_id"
   end
 
   create_table "messages", :force => true do |t|
@@ -103,7 +101,6 @@ ActiveRecord::Schema.define(:version => 20130903135458) do
     t.string   "name"
     t.decimal  "price"
     t.text     "description"
-    t.integer  "no_of_likes"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "location"

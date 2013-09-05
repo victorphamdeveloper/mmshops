@@ -24,6 +24,8 @@ class Product < ActiveRecord::Base
   has_many :likes, foreign_key: "product_id"
   has_many :like_users, class_name: "User", through: :likes, source: "user"
 
+  before_destroy :ensure_not_referenced_by_any_line_item
+
   attr_accessible :category_id, :description, :name, :no_of_likes, :price, :user_id, :location, :avatar, :product_images_attributes
 
   validates :name, presence: true
@@ -40,5 +42,16 @@ class Product < ActiveRecord::Base
       errors[:base] << "Too many products for a Premium user (maximum is 100)"
     end
   end
+
+  private
+  # ensure that there are no line items referencing this product
+    def ensure_not_referenced_by_any_line_item
+      if line_items.empty?
+        return true
+      else
+        errors.add(:base, 'Line Items present')
+        return false
+      end
+    end
           
 end

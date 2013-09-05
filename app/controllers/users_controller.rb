@@ -86,7 +86,6 @@ class UsersController < ApplicationController
     def admin_user
       redirect_to root_path, notice: "You must be admin to do this." unless is_admin(current_user)
     end
-
     
     def correct_user
       @user = User.find(params[:id])

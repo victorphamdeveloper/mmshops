@@ -10,5 +10,4 @@ module UsersHelper
 	def is_seller(user)
 		user.role == 2
 	end
-
 end

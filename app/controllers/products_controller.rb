@@ -61,8 +61,6 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = current_user.products.create(params[:product])
-    @product.no_of_likes = 0
-
     if @product.save
       flash[:success] = "You created a new product"
       redirect_to root_url

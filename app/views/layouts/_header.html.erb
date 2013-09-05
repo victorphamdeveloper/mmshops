@@ -23,7 +23,13 @@
 									<% if is_seller(current_user) %>
 										<li><%= link_to "SELL", new_product_path %></li>
 									<% elsif is_buyer(current_user) %> 
-										<li><a href="#"><i class="icon-shopping-cart"></i>SHOPPING BAG</a></li>
+										<li>
+											<%= link_to cart_path(current_cart) do %>
+												<i class="icon-shopping-cart"></i>
+												SHOPPING BAG
+											<% end %>
+										</li>
+										
 									<% elsif is_admin(current_user) %>
 										<li><%= link_to "Users", users_path %></li>
 									<% end %>

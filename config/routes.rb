@@ -1,4 +1,7 @@
 Mmshops::Application.routes.draw do
+  resources :carts
+
+
   resources :likes
 
 

@@ -13,6 +13,19 @@
  *= require_self
  *= require_tree .
  */
+
+ /* Styles for the cart in the main page */
+.cart_title {
+font: 120% bold;
+}
+.item_price, .total_line {
+text-align: right;
+}
+.total_line .total_cell {
+font-weight: bold;
+border-top: 1px solid #595;
+}
+
 #user_role, #product_location{
 	min-height: 40px;
 }

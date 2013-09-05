@@ -13,7 +13,8 @@
 #
 
 class Order < ActiveRecord::Base
-  belongs_to :buyer, class_name: "Buyer", foreign_key: :user_id
+  belongs_to :buyer, class_name: "Buyer"
+  belongs_to :seller, class_name: "Seller"
   has_many :line_items
   
   attr_accessible :address, :payment_method, :price, :status, :user_id

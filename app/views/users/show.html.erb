@@ -10,6 +10,11 @@
   <%= @user.email %>
 </p>
 
+<% if is_seller(current_user) %>
+	<b>Total likes:</b>
+  	<%= total_likes(current_user) %>
+<% end %>
+
 <% if !current_user?(@user) %>
 	<%= link_to "Send a message to this person", messages_path(receiver_id: @user) %>
 <% elsif current_user?(@user) %>
