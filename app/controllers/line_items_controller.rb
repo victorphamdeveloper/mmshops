@@ -47,11 +47,24 @@ class LineItemsController < ApplicationController
     @cart = current_cart
     product = Product.find(params[:product_id])
     @line_item = @cart.add_product(product.id, product.get_seller.id, current_user.id)
-    
+
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
-        format.json { render json: @line_item, status: :created, location: @line_item }
+        if params[:buynow] == "true"
+          @cart = current_cart
+          @cart.line_items.each do |l|
+            l.status = "pending"
+            l.save
+          end
+          @cart.destroy
+          session[:cart_id] = nil
+          
+          format.html { redirect_to root_url, notice: 'Ordered successfully.' }
+          format.json { render json: @line_item, status: :created, location: @line_item }
+        else
+          format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+          format.json { render json: @line_item, status: :created, location: @line_item }
+        end
       else
         format.html { render action: "new" }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }

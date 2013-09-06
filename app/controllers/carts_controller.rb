@@ -93,8 +93,6 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-      l.buyer_id = current_user.id
-      l.seller_id = l.product.get
     @cart = current_cart
     @cart.line_items.each do |l|
       l.delete

@@ -5,10 +5,10 @@
 		<h1>Sign up</h1>
 		<%= form_for(@user) do |f| %>
 		<%= render 'shared/error_messages' %>
-
+	
 			<%= f.label :name %>
 			<%= f.text_field :name %>
-
+	
 			<%= f.label :email %>
 			<%= f.text_field :email %>
 
@@ -20,8 +20,8 @@
 
 			<%= f.label :role, "Account type" %>
 			
-	    	<%= select("user", "role", [["seller",2],["buyer",3]], html_options: {:class => "select-box"} ) %>
-	    	
+	    <%= select("user", "role", [["buyer",3],["seller",2]],{}, {:class => "select-box",:onchange => "update_seller_tag()"}) %>
+	    
 			<br />
 
 			<br/>

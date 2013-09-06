@@ -15,6 +15,8 @@ class Seller < User
 	before_save :set_role
 
 	has_one :seller_info, foreign_key: :user_id 
+	accepts_nested_attributes_for :seller_info
+
 	has_many :products, foreign_key: :user_id, dependent: :destroy
 	has_many :line_items,foreign_key: :seller_id 
 	has_many :orders, foreign_key: :seller_id

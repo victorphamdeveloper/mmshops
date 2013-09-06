@@ -5,6 +5,7 @@
     <th>Product</th>
     <th>Status</th>
     <th>Quantity</th>
+    <th>Price</th>
     <th></th>
     <th></th>
   </tr>
@@ -14,6 +15,7 @@
     <td><%= Product.find(line_item.product_id).name %></td>
     <td><%= line_item.status %></td>
     <td><%= line_item.quantity %></td>
+    <td><%= number_to_currency(line_item.total_price) %></td>
     <td><%= link_to 'View', line_item %></td>
     <% if is_seller(current_user) %>
       <td><%= link_to 'Update status', edit_line_item_path(line_item) %></td>
