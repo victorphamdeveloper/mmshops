@@ -14,7 +14,7 @@
 #
 
 class Product < ActiveRecord::Base
-  belongs_to :seller, class_name: "Seller", foreign_key: :user_id
+  belongs_to :user, class_name: "User"
   belongs_to :category	
   has_many :line_items
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
@@ -26,7 +26,7 @@ class Product < ActiveRecord::Base
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
-  attr_accessible :category_id, :description, :name, :no_of_likes, :price, :user_id, :location, :avatar, :product_images_attributes
+  attr_accessible :category_id, :description, :name, :price, :user_id, :location, :avatar, :product_images_attributes
 
   validates :name, presence: true
   validates :location, presence: true
@@ -41,6 +41,10 @@ class Product < ActiveRecord::Base
     elsif seller.seller_level == 'premium' && seller.products.count > 100
       errors[:base] << "Too many products for a Premium user (maximum is 100)"
     end
+  end
+
+  def get_seller
+    user.becomes(Seller)
   end
 
   private

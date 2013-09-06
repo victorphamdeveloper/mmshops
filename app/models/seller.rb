@@ -16,7 +16,8 @@ class Seller < User
 
 	has_one :seller_info, foreign_key: :user_id 
 	has_many :products, foreign_key: :user_id, dependent: :destroy
-	has_many :line_items, through: :products
+	has_many :line_items,foreign_key: :seller_id 
+	has_many :orders, foreign_key: :seller_id
 
 	def set_role
 		self.role = 2

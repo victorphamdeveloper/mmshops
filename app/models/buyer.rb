@@ -14,7 +14,7 @@
 class Buyer < User 
 	before_save :set_role
 
-	has_many :line_items, :through => :orders
+	has_many :line_items, foreign_key: :buyer_id 
 	has_many :orders, foreign_key: :user_id 
 	
 

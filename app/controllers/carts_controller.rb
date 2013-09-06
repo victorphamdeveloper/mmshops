@@ -73,10 +73,32 @@ class CartsController < ApplicationController
     end
   end
 
+  def checkout
+    @cart = current_cart
+    @cart.line_items.each do |l|
+      l.status = "pending"
+      l.save
+    end
+    @cart.destroy
+    session[:cart_id] = nil
+
+    respond_to do |format|
+      format.html { redirect_to(root_url,
+        :notice => 'Successfully order your products') }
+      format.xml { head :ok }
+    end
+  end
+
+
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
+      l.buyer_id = current_user.id
+      l.seller_id = l.product.get
     @cart = current_cart
+    @cart.line_items.each do |l|
+      l.delete
+    end
     @cart.destroy
     session[:cart_id] = nil
 

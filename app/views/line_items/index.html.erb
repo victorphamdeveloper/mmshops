@@ -1,29 +1,26 @@
-<h1>Listing line_items</h1>
+<h1>Listing orders</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Product</th>
-    <th>Order</th>
     <th>Status</th>
     <th>Quantity</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @line_items.each do |line_item| %>
   <tr>
-    <td><%= line_item.product_id %></td>
-    <td><%= line_item.order_id %></td>
+    <td><%= Product.find(line_item.product_id).name %></td>
     <td><%= line_item.status %></td>
     <td><%= line_item.quantity %></td>
-    <td><%= link_to 'Show', line_item %></td>
-    <td><%= link_to 'Edit', edit_line_item_path(line_item) %></td>
-    <td><%= link_to 'Destroy', line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'View', line_item %></td>
+    <% if is_seller(current_user) %>
+      <td><%= link_to 'Update status', edit_line_item_path(line_item) %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Line item', new_line_item_path %>

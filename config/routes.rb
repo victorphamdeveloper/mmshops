@@ -1,4 +1,6 @@
 Mmshops::Application.routes.draw do
+  match '/checkout', to: "carts#checkout", via: :delete, as: :checkout_path
+
   resources :carts
 
 
@@ -35,7 +37,6 @@ Mmshops::Application.routes.draw do
   match '/signup', to: "users#new"
   match '/signin', to: "sessions#new"
   match '/signout', to: "sessions#destroy", via: :delete
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

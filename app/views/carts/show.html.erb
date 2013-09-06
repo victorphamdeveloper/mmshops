@@ -14,5 +14,6 @@
 	</tr>
 </table>
 
-<%= button_to 'Empty cart', @cart, :method => :delete,
-	:confirm => 'Are you sure?' %>
+<%= button_to 'Empty cart', @cart, :method => :delete, :confirm => 'Are you sure?', class: "btn btn-large btn-primary " %>
+<br>
+<%= button_to 'Checkout', {action: "checkout", controller: "carts"}, :confirm => 'Are you sure to checkout?', :method => :delete, class: "btn btn-large btn-primary " %>

@@ -17,5 +17,11 @@ class Order < ActiveRecord::Base
   belongs_to :seller, class_name: "Seller"
   has_many :line_items
   
-  attr_accessible :address, :payment_method, :price, :status, :user_id
+  validates :address, presence: true
+  validates :price, presence: true
+  validates :status, presence: true
+	validates :user_id, presence: true
+	validates :seller_id, presence: true
+	
+  attr_accessible :address, :payment_method, :price, :status, :user_id, :seller_id
 end
