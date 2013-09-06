@@ -14,6 +14,7 @@
 #
 
 class Product < ActiveRecord::Base
+  self.per_page = 5
   belongs_to :user, class_name: "User"
   belongs_to :category	
   has_many :line_items
@@ -35,10 +36,12 @@ class Product < ActiveRecord::Base
   validate :product_limit_validates, on: :create
 
   def product_limit_validates
-    return if seller.seller_level == 'elite'
-    if seller.seller_level == 'normal' && seller.products.count > 3
+    s = Seller.find(user.id)
+    return if s.seller_level == 'elite'
+    
+    if s.seller_level == 'normal' && s.products.count > 20
       errors[:base] << "Too many products for a Normal user (maximum is 20)"
-    elsif seller.seller_level == 'premium' && seller.products.count > 100
+    elsif s.seller_level == 'premium' && s.products.count > 100
       errors[:base] << "Too many products for a Premium user (maximum is 100)"
     end
   end

@@ -5,18 +5,16 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    if params[:category_id].nil?
-      @products = Product.all
+    if !params[:category_id].nil?
+      @products = Product.where("category_id = ?",params[:category_id]).paginate(page: params[:page])
+    elsif !params[:city].nil?
+      @products = Product.where("location = ?",params[:city]).paginate(page: params[:page])
+    elsif params[:like] == "true"
+      @products = current_user.like_products.paginate(page: params[:page])
     else
-      @products = Product.where("category_id = ?",params[:category_id])
-    end
-
-    if params[:city].nil?
-      @products = Product.all
-    else
-      @products = Product.where("location = ?",params[:city])
-    end
-
+      @products = Product.paginate(page: params[:page])  
+    end      
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }

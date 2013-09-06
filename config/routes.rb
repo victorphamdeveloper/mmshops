@@ -1,6 +1,5 @@
 Mmshops::Application.routes.draw do
   match '/checkout', to: "carts#checkout", via: :delete, as: :checkout_path
-
   resources :carts
 
 
