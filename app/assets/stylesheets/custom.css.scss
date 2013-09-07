@@ -94,9 +94,13 @@ div.product-wrapper{
 }
 div.product-img {
 	border: 1px solid #dddddd;
-	height:150px
-
 }
+div.product-img img{
+	height:130px;
+	width: 95%;
+
+	}
+
 div.product-wrapper img{
 	display: inline;
   margin: 3px;

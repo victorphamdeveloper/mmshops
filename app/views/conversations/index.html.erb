@@ -1,6 +1,6 @@
 <h1>Listing conversations</h1>
 
-<table>
+<table class="table">
   <tr>
     <th>Sender</th>
     <th>Receiver</th>
@@ -20,7 +20,7 @@
     <% else %>  
       <td><%= link_to 'Chat', messages_path(receiver_id: conversation.receiver_id) %></td>
     <% end %>
-    <td><%= link_to 'Destroy', conversation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete conversation', conversation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

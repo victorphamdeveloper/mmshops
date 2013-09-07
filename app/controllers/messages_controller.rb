@@ -26,12 +26,9 @@ class MessagesController < ApplicationController
     c = Conversation.where("(sender_id = ? and receiver_id = ?) or (sender_id = ? and receiver_id = ?)", current_user, params[:receiver_id], params[:receiver_id], current_user)
     if c == nil
       #Initiate new conversation with this person
-      puts "adabvfaadvagdvad"
       c = current_user.conversations.create(sender_id: current_user, receiver_id: params[:receiver_id])
       c.messages.new(sender_id: current_user, receiver_id: params[:receiver_id])
     else
-      puts "pmcnxbqwjruncjaks"
-
       c.messages.new(sender_id:current_user, receiver_id: params[:receiver_id])
     end
   end
@@ -48,18 +45,22 @@ class MessagesController < ApplicationController
     
     if c.blank?
       #Initiate new conversation with this person
-      puts "adabvfaadvagdvad"
+    
       c = Conversation.create(sender_id: params[:message][:sender_id], receiver_id: params[:message][:receiver_id])
       @message = c.messages.create!(params[:message])
     else
       @message = c.first.messages.create!(params[:message])
     end
-    
-    if @message.sender.id < @message.receiver.id
-      @channel = "/messages/new/private/#{@message.sender.id}/#{@message.receiver.id}"
-    else 
-      @channel = "/messages/new/private/#{@message.receiver.id}/#{@message.sender.id}"
-    end  
+
+    respond_to do |format|
+      if @message.update_attributes(params[:message])
+        format.html { redirect_to messages_path(receiver_id: params[:message][:receiver_id]), notice: 'Message was successfully sent.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @message.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PUT /messages/1

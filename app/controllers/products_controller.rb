@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
     elsif params[:like] == "true"
       @products = current_user.like_products.paginate(page: params[:page])
     else
-      @products = Product.paginate(page: params[:page], per_page: 12)  
+      @products = Product.order("created_at DESC").paginate(page: params[:page], per_page: 12)  
     end      
 
     if !params[:sort_by].nil?

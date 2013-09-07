@@ -66,14 +66,15 @@
 
 		<div class="span9 input-form">
 			<h1>New Product</h1>
-			<%= form_for(@product, :html => { :multipart => true }) do |f| %>
+			<%= form_for(@product, :html => { :multipart => true },role: "form") do |f| %>
+
 				<%= f.label :name %>
 				<%= f.text_field :name %>
-
+		
 				<%= f.label :description %>
 				<%= f.text_area :description %>
-			
-				<%= f.label :price %>
+				
+				<%= f.label :price %>	
 	    	<%= f.text_field :price %>
 
 				<%= f.label :location %>
