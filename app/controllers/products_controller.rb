@@ -11,21 +11,20 @@ class ProductsController < ApplicationController
       @products = Product.where("location = ?",params[:city]).paginate(page: params[:page])
     elsif params[:like] == "true"
       @products = current_user.like_products.paginate(page: params[:page])
+    elsif !params[:sort_by].nil?
+      if params[:sort_by] == "no_of_likes"
+        @products = Product.all.sort{|a,b| b.likes.count <=> a.likes.count }.paginate(page: params[:page], per_page: 12)  
+      elsif params[:sort_by] == "created_at"
+        @products = Product.order("created_at DESC").paginate(page: params[:page])
+      elsif params[:sort_by] == "price_low_high"
+        @products = Product.order("price ASC").paginate(page: params[:page])
+      elsif params[:sort_by] == "price_high_low"
+        @products = Product.order("price DESC").paginate(page: params[:page])        
+      end
     else
       @products = Product.order("created_at DESC").paginate(page: params[:page], per_page: 12)  
     end      
 
-    if !params[:sort_by].nil?
-      if params[:sort_by] == "no_of_likes"
-        @products = @products.sort{|a,b| b.likes.count <=> a.likes.count }.paginate(page: params[:page], per_page: 10)  
-      elsif params[:sort_by] == "created_at"
-        @products = @products.order("created_at DESC")
-      elsif params[:sort_by] == "price_low_high"
-        @products = @products.order("price ASC")
-      elsif params[:sort_by] == "price_high_low"
-        @products = @products.order("price DESC")        
-      end
-    end
     
     respond_to do |format|
       format.html # index.html.erb

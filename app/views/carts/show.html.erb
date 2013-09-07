@@ -1,9 +1,12 @@
 <div class="cart_title">Your Cart</div>
-<table>
+<table class="table">
+	<th>Name</th>
+	<th>Quantity</th>
+	<th>Total price</th>
 	<% @cart.line_items.each do |item| %>
 		<tr>
-			<td><%= item.quantity %>&times;</td>
-			<td><%= item.product.name %></td>
+			<td><%= link_to item.product.name, product_path(item.product) %></td>
+			<td><%= item.quantity %></td>
 			<td class="item_price" ><%= number_to_currency(item.total_price) %></td>
 		</tr>
 	<% end %>

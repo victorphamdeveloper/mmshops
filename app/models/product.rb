@@ -14,7 +14,7 @@
 #
 
 class Product < ActiveRecord::Base
-  self.per_page = 5
+  self.per_page = 12
   belongs_to :user, class_name: "User"
   belongs_to :category	
   has_many :line_items

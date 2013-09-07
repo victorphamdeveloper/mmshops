@@ -16,12 +16,18 @@
   </p>
   <p>
     <b>Description:</b>
-    <%= @product.description %>
+    <%= @product.description %>name
   </p>
   <p>
     <b>No of likes:</b>
     <%= @product.likes.count %>
   </p>
+
+  <p>
+    <b>Seller:</b>
+    <%= link_to @product.user.name, user_path(@product.user.id) %>
+  </p>
+
   <p>
   <%= button_to 'Add to Cart', line_items_path(:product_id => @product.id), class: "btn btn-large btn-primary signup-button" %>
   <br>
