@@ -30,8 +30,6 @@
 											<% end %>
 										</li>
 										
-									<% elsif is_admin(current_user) %>
-										<li><%= link_to "Users", users_path %></li>
 									<% end %>
 									<li id="fat-menu" class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
@@ -39,6 +37,10 @@
 											<li><%= link_to "Order", line_items_path %></li>
 											<li><%= link_to "Profile", user_path(current_user) %></li>
 											<li><%= link_to "Settings", edit_user_path(current_user) %></li> 
+											<% if is_admin(current_user) %>
+												<li><%= link_to "Manage sellers", manage_seller_path %></li>
+												<li><%= link_to "Banned products", view_ban_products_path %></li>
+											<% end %>
 											<li class="divider"></li>
 											<li><%= link_to "SIGN OUT", signout_path, method: "delete" %></li>
 										</ul>

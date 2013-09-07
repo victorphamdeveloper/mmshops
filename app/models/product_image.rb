@@ -8,4 +8,6 @@ class ProductImage < ActiveRecord::Base
       :large => "600x600>"
         }
   attr_accessible :product_id, :image
+  validates_attachment_size :image, :less_than => 5.megabytes
+
 end

@@ -36,6 +36,20 @@
 
 
   <%= render 'shared/like_button' %>
+  <br>
+  <% if is_admin(current_user) or is_seller_of(@product) %>
+  <%= button_to 'Delete', product_path(@product), method: :delete , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+  <% end %>
+  <br>
+  <% if is_admin(current_user) %>
+    <% if @product.ban == 0 %>
+      <%= button_to 'Ban', product_ban_path(@product), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+    <% elsif @product.ban == 1 %>
+      <%= button_to 'Unban', product_ban_path(@product), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+    <% end %>
+  <% end %>
+
+
 </div>
 
 <!--<p>

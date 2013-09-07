@@ -1,10 +1,32 @@
 <% provide(:title, 'All users') %> 
-<h1>All users</h1>
+<h1>All sellers</h1>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+    Sort by <span class="caret"></span>
+  </button>
+	<ul class="dropdown-menu" role="menu">
+	  <li><%= link_to "By seller score (high to low)", manage_seller_path(sort_by: "score_high_low") %></li>
+	  <li><%= link_to "By seller score (low to high)", manage_seller_path(sort_by: "score_low_high") %></li>
+	  <li><%= link_to "Recently joined", manage_seller_path(sort_by: "created_at_desc") %></li>
+	  <li><%= link_to "Least recently joined", manage_seller_path(sort_by: "created_at_asc") %></li>
+	</ul>
+</div>
+
 
 <%= will_paginate %>
 
 <ul class="users">
-  <%= render @users %>
+	<table class="table">
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Ban</th>
+			<th>Delete</th>
+			<th>Upgrade</th>
+		</tr>
+  		<%= render @users %>
+</table>
 </ul>
 
 <%= will_paginate %>

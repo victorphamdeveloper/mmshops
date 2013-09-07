@@ -1,5 +1,10 @@
 Mmshops::Application.routes.draw do
-  match '/checkout', to: "carts#checkout", via: :delete, as: :checkout_path
+  match '/checkout', to: "carts#checkout", via: :delete, as: :checkout
+  match '/manage_seller', to: "users#manage_seller", via: :get, as: :manage_seller
+  match '/ban/:id', to: "users#ban", via: :put, as: :ban
+  match '/upgrade/:id', to: "users#upgrade", via: :put, as: :upgrade
+  match '/product_ban/:id', to: "products#ban", via: :put, as: :product_ban
+  match '/ban_products', to: "products#view_ban_products", via: :get, as: :view_ban_products
   resources :carts
 
 

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
+  before_filter :admin_user, only: [:destroy, :ban, :manage_seller]
 
   # GET /users
   # GET /users.json
@@ -22,6 +22,23 @@ class UsersController < ApplicationController
     end
       
   end
+
+  def manage_seller
+    @users = User.where("role = 2")
+    if params[:sort_by] == "score_high_low"
+      @users = @users.sort!{|a,b| total_likes(a) <=> total_likes(b) }
+    elsif params[:sort_by] == "score_low_high"
+      @users = @users.sort!{|a,b| total_likes(b) <=> total_likes(a) }
+    elsif params[:sort_by] == "created_at_desc"
+      @users = @users.order("created_at DESC")
+    elsif params[:sort_by] == "created_at_asc"
+      @users = @users.order("created_at ASC")
+    end
+
+    @users = @users.paginate(page: params[:page])
+    render 'index'
+  end
+
 
   # GET /users/new
   # GET /users/new.json
@@ -45,6 +62,7 @@ class UsersController < ApplicationController
     if @user.role == 2
       @user.seller_level = 'normal'
     end
+    @user.ban = 0
     if @user.save
       sign_in @user
       flash[:succeess] = "Sign up successfully"      
@@ -54,6 +72,43 @@ class UsersController < ApplicationController
     end
     
   end
+
+  def ban
+    @user = User.find(params[:id])
+    action = ""
+    if @user.ban == 1
+      @user.ban = 0
+      action = "unban"
+    elsif @user.ban == 0
+      @user.ban = 1
+      action = "ban"
+    end 
+
+    if @user.save(validate: false)
+      flash[:success] = "Successfully #{action} user #{@user.name}"
+      redirect_to root_url
+    else
+      flash[:failure] = "Ban failed"
+      redirect_to root_url
+
+    end
+  end
+
+  def upgrade
+    @user = User.find(params[:id])
+    level = params[:level]
+    @user.seller_level = level
+
+    if @user.save(validate: false)
+      flash[:success] = "Successfully upgrade user to #{level} account"
+      redirect_to root_url
+    else
+      flash[:failure] = "Upgrade failed"
+      redirect_to root_url
+
+    end
+  end
+
 
   # PUT /users/1
   # PUT /users/1.json

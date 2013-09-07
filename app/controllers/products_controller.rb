@@ -1,37 +1,67 @@
 class ProductsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :update, :destroy]
   before_filter :filter_seller, only: [:create, :update]
-  before_filter :seller_of_this_product, only:  [:update, :edit, :destroy]
+  before_filter :filter_ban, only: [:create, :update, :new]
+  before_filter :filter_ban_product, only: [:show, :update, :edit]
+  before_filter :seller_or_admin_of_this_product, only:  [:update, :edit, :destroy]
+
   # GET /products
   # GET /products.json
   def index
+    @products = Product.where("ban = 0")
     if !params[:category_id].nil?
-      @products = Product.where("category_id = ?",params[:category_id]).paginate(page: params[:page])
+      @products = @products.where("category_id = ?",params[:category_id])
     elsif !params[:city].nil?
-      @products = Product.where("location = ?",params[:city]).paginate(page: params[:page])
+      @products = @products.where("location = ?",params[:city])
     elsif params[:like] == "true"
-      @products = current_user.like_products.paginate(page: params[:page])
+      @products = current_user.like_products
     elsif !params[:sort_by].nil?
       if params[:sort_by] == "no_of_likes"
-        @products = Product.all.sort{|a,b| b.likes.count <=> a.likes.count }.paginate(page: params[:page], per_page: 12)  
+        @products = @products.sort{|a,b| b.likes.count <=> a.likes.count }
       elsif params[:sort_by] == "created_at"
-        @products = Product.order("created_at DESC").paginate(page: params[:page])
+        @products = @products.order("created_at DESC")
       elsif params[:sort_by] == "price_low_high"
-        @products = Product.order("price ASC").paginate(page: params[:page])
+        @products = @products.order("price ASC")
       elsif params[:sort_by] == "price_high_low"
-        @products = Product.order("price DESC").paginate(page: params[:page])        
+        @products = @products.order("price DESC")     
       end
-    else
-      @products = Product.order("created_at DESC").paginate(page: params[:page], per_page: 12)  
+    elsif params[:category_id].nil? and params[:city].nil? and params[:like] != "true" and params[:sort_by].nil?
+      @products = @products.order("created_at DESC")    
     end      
 
-    
+    @products = @products.paginate(page: params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }
     end
   end
 
+
+  def view_ban_products
+    @products = Product.where("ban = 1")
+    render 'ban'
+  end
+
+  def ban
+    @product = Product.find(params[:id])
+    action = ""
+    if @product.ban == 1
+      @product.ban = 0
+      action = "unban"
+    elsif @product.ban == 0
+      @product.ban = 1
+      action = "ban"
+    end 
+
+    if @product.save(validate: false)
+      flash[:success] = "Successfully #{action} product #{@product.name}"
+      redirect_to root_url
+    else
+      flash[:failure] = "Ban failed"
+      redirect_to root_url
+
+    end
+  end
   # GET /products/1
   # GET /products/1.json
   def show
@@ -70,6 +100,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = current_user.products.create(params[:product])
+    @product.ban = 0
     if @product.save
       flash[:success] = "You created a new product"
       redirect_to root_url
@@ -107,16 +138,17 @@ class ProductsController < ApplicationController
     @product.destroy
 
     respond_to do |format|
-      format.html { redirect_to products_url }
+      format.html { redirect_to root_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
-  def seller_of_this_product
+  def seller_or_admin_of_this_product
     @product = Product.find(params[:id])
-    unless @product.user_id == current_user.id
-      redirect_to root_url, notice: "You are not owner of this product"
+    if @product.user_id != current_user.id and !is_admin(current_user)
+      redirect_to root_url, notice: "You are not admin/owner of this product"
     end    
+
   end
 
 end

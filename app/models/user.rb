@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   before_save :set_default_role, :create_remember_token	
   before_save { |user| user.email = email.downcase }
   
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level, :ban
   has_secure_password 
 
   has_many :sended_conversations, class_name: "Conversation", foreign_key: :sender_id
@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   	if self.role == nil 
   		self.role = 3 
   	end
+    ban = 0
   end
 
   private

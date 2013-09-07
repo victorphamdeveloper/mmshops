@@ -27,7 +27,7 @@ class Product < ActiveRecord::Base
 
   before_destroy :ensure_not_referenced_by_any_line_item
 
-  attr_accessible :category_id, :description, :name, :price, :user_id, :location, :avatar, :product_images_attributes
+  attr_accessible :category_id, :description, :name, :price, :user_id, :location, :avatar, :product_images_attributes, :ban
 
   validates :name, presence: true
   validates :location, presence: true
