@@ -78,17 +78,32 @@ ul {
 	padding-top: 10px;
 	margin-bottom: 20px;
 }
-.product-wrapper {
-	padding: 10px;
-}
+
 .products-wrapper {
 	margin-bottom: 40px;
 }
-
-.products-wrapper img{
-	width: 100%;
+div.clear {
+	clear:both;
 }
+div.product-wrapper{
+	margin: 10px;
+  height: 170px;
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+div.product-img {
+	border: 1px solid #dddddd;
+	height:150px
 
+}
+div.product-wrapper img{
+	display: inline;
+  margin: 3px;
+}
+div.product-desc {
+	vertical-align:text-bottom;
+}
 .shop-wrapper {
 	background: #DFDFDF;
 	padding: 20px 0px;

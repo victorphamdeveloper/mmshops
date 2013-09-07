@@ -20,10 +20,11 @@
   </p>
   <p>
     <b>No of likes:</b>
-    <div id="like_count"><%= @product.likes.count %></div>
+    <%= @product.likes.count %>
   </p>
   <p>
   <%= button_to 'Add to Cart', line_items_path(:product_id => @product.id), class: "btn btn-large btn-primary signup-button" %>
+  <br>
   <%= button_to 'Buy now', line_items_path(:product_id => @product.id, buynow: "true"), class: "btn btn-large btn-primary signup-button" %>
   </p>
 
