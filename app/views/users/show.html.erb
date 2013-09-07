@@ -3,7 +3,7 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <% if is_seller(current_user) %>
+    <% if is_seller(@user) %>
     	<th>Seller score</th>
     <% end %>
   </tr>
@@ -11,8 +11,8 @@
   <tr>
   	<td><%= @user.name %></td>
   	<td><%= @user.email %></td>
-  	<% if is_seller(current_user) %>
-  		<td><%= total_likes(current_user) %></td>
+  	<% if is_seller(@user) %>
+  		<td><%= total_likes(@user) %></td>
   	<% end %>
 	</tr>	
 </table>

@@ -1,6 +1,6 @@
 
 
-<h1>Chat</h1>
+<h1>Chat with <%= User.find(params[:receiver_id]).name %></h1>
 <ul id="chat">
   <%= render @messages %>
 </ul>
