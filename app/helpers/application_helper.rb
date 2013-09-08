@@ -41,19 +41,19 @@ module ApplicationHelper
 	end
 
 	def is_buyer(user)
-		user.role == 3
+		user != nil and user.role == 3
 	end
 
 	def is_admin(user)
-		user.role == 1
+		user != nil and user.role == 1 
 	end
 	
 	def is_seller(user)
-		user.role == 2
+		user != nil and user.role == 2
 	end
 
 	def is_seller_of(product)
-		product.user_id == current_user.id 
+		current_user != nil and product.user_id == current_user.id 
 	end
 
 	def total_likes(user)

@@ -1,8 +1,12 @@
 class ConversationsController < ApplicationController
   # GET /conversations
   # GET /conversations.json
+  before_filter :signed_in_user
   def index
     @conversations = Conversation.where("sender_id = ? or receiver_id = ?",current_user, current_user)
+    user = User.find(current_user)
+    user.update_attribute(:unread, 0)
+
   end
 
   # GET /conversations/1

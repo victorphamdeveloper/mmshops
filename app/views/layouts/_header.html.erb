@@ -19,7 +19,14 @@
 								</li>
 								
 								<% if signed_in? %>
-									<li><%= link_to "CHAT", conversations_path %></li>
+									<li>
+										<%= link_to conversations_path do %>
+											CHAT
+											<% if current_user.unread == 1 %>
+												<span class="badge">!</span>
+											<% end %>
+										<% end %>
+									</li>
 									<% if is_seller(current_user) %>
 										<li><%= link_to "SELL", new_product_path %></li>
 									<% elsif is_buyer(current_user) %> 

@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
   # GET /carts
   # GET /carts.json
+  before_filter :signed_in_user
   def index
     @carts = Cart.all
 

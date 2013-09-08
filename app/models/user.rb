@@ -13,10 +13,10 @@
 
 class User < ActiveRecord::Base
   
-  before_save :set_default_role, :create_remember_token	
+  before_create :set_default_role, :create_remember_token	
   before_save { |user| user.email = email.downcase }
   
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level, :ban
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level, :ban, :unread
   has_secure_password 
 
   has_many :sended_conversations, class_name: "Conversation", foreign_key: :sender_id

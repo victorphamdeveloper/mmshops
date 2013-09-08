@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
+  before_filter :signed_in_user
   def index
     @messages = Message.where("(sender_id = ? and receiver_id = ?) or (sender_id = ? and receiver_id = ?)", current_user, params[:receiver_id], params[:receiver_id], current_user)
     if(@messages == nil)
@@ -52,6 +53,10 @@ class MessagesController < ApplicationController
       @message = c.first.messages.create!(params[:message])
     end
 
+    receiver = User.find(params[:message][:receiver_id])
+    receiver.unread = 1
+    receiver.save(validate: false)
+    
     respond_to do |format|
       if @message.update_attributes(params[:message])
         format.html { redirect_to messages_path(receiver_id: params[:message][:receiver_id]), notice: 'Message was successfully sent.' }

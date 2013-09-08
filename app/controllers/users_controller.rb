@@ -109,6 +109,19 @@ class UsersController < ApplicationController
     end
   end
 
+   def read
+    @user = User.find(params[:id])
+    read = params[:unread]
+    @user.unread = read
+
+    if @user.save(validate: false)
+      
+    else
+      flash[:failure] = "Read/unread failed"
+      redirect_to root_url
+
+    end
+  end
 
   # PUT /users/1
   # PUT /users/1.json

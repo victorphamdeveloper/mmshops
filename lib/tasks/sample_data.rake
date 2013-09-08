@@ -5,7 +5,9 @@ namespace :db do
                  email: "admin@mmshops.com",
                  password: "123456",
                  password_confirmation: "123456",
-                 role: 1)
+                 role: 1,
+                 ban: 0,
+                 unread: 0)
     30.times do |n|
       name  = Faker::Name.name
       email = "buyer-#{n+1}@mmshops.com"
@@ -14,7 +16,9 @@ namespace :db do
                   email: email,
                   password: password,
                   password_confirmation: password,
-                  role: 3)
+                  role: 3,
+                  ban: 0,
+                  unread: 0)
     end 
 
     30.times do |n|
@@ -26,7 +30,9 @@ namespace :db do
                   password: password,
                   password_confirmation: password,
                   role: 2,
-                  seller_level: "normal")
+                  seller_level: "normal",
+                  ban: 0,
+                  unread: 0)
     end
   end
 end
