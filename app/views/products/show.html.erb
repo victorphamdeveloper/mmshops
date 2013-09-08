@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 <div class="span4 product_show">
-  <%= image_tag @product.avatar.url(:medium) %>
+  <%= image_tag @product.avatar.url(:medium), class: "avatar_img img-rounded" %>
   <% @product.product_images.each do |photo| %>
-    <%= image_tag photo.image.url(:thumb) %>
+    <%= image_tag photo.image.url(:thumb), class: "product_img" %>
   <% end %>
 </div>
 <div class="span4">

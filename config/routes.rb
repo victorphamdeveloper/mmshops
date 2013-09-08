@@ -5,6 +5,7 @@ Mmshops::Application.routes.draw do
   match '/upgrade/:id', to: "users#upgrade", via: :put, as: :upgrade
   match '/product_ban/:id', to: "products#ban", via: :put, as: :product_ban
   match '/ban_products', to: "products#view_ban_products", via: :get, as: :view_ban_products
+  match '/search', to: "products#search", via: :get, as: :search
   resources :carts
 
 

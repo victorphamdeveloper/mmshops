@@ -37,6 +37,16 @@ class ProductsController < ApplicationController
   end
 
 
+  def search
+    if !params[:key].nil?
+    @products = Product.where("name like '%#{params[:key]}%'").paginate(page: params[:page])
+    else
+      @products = Product.all.paginate(page: params[:page])
+    end
+
+    render 'index'
+  end
+  
   def view_ban_products
     @products = Product.where("ban = 1")
     render 'ban'
