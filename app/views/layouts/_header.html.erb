@@ -8,7 +8,7 @@
 								<li>
 									<div id="city-wrapper">
 										<label for="city">Choose your city</label>
-										<%= select("city", "name", City.all.collect {|c| [ c.name, c.name ] }, { :include_blank => true }) %>
+										<%= select("city", "name", City.all.collect {|c| [ c.name, c.name ] } ) %>
 									</div>				
 								</li>
 								<li>
@@ -29,18 +29,16 @@
 												<span class="badge">!</span>
 											<% end %>
 										<% end %>
-									</li>
-									<% if is_seller(current_user) %>
-										<li><%= link_to "SELL", new_product_path %></li>
-									<% elsif is_buyer(current_user) %> 
-										<li>
-											<%= link_to cart_path(current_cart) do %>
-												<i class="icon-shopping-cart"></i>
+									</li>									
+									
+									<li><%= link_to "SELL", new_product_path %></li>									
+									<li>
+										<%= link_to cart_path(current_cart) do %>
+											<i class="icon-shopping-cart"></i>
 												SHOPPING BAG
-											<% end %>
-										</li>
+										<% end %>
+									</li>
 										
-									<% end %>
 									<li id="fat-menu" class="dropdown">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
 										<ul class="dropdown-menu">

@@ -12,15 +12,14 @@
 			<%= f.label :email %>
 			<%= f.text_field :email %>
 
+			<%= f.label :location %>
+	    <%= select("user", "location", City.all.collect { |c| [ c.name, c.name ]}, { :include_blank => true }) %>
+
 			<%= f.label :password %>
 			<%= f.text_field :password %>			
 
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation %>
-
-			<%= f.label :role, "Account type" %>
-			
-	    <%= select("user", "role", [["buyer",3],["seller",2]],{}, {:class => "select-box",:onchange => "update_seller_tag()"}) %>
 	    
 			<br />
 

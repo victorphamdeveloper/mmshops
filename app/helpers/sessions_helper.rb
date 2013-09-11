@@ -12,15 +12,6 @@ module SessionsHelper
 		return @current_user if !@current_user.nil?
 
 		user = User.find_by_remember_token(cookies[:remember_token])
-		if !user.nil?
-			if user.role == 2
-				user = user.becomes(Seller)
-			elsif user.role == 1
-				user = user.becomes(Admin)
-			elsif user.role == 3
-				user = user.becomes(Buyer)
-			end
-		end
 		@current_user ||= user
 		
 	end

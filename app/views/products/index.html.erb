@@ -21,7 +21,12 @@
 	<div class="product-wrapper">
 		<div class="product-img">
 	  	<%= link_to product do %>
-	    	<%= image_tag product.avatar.url(:medium) %>
+	  		<% if product.product_images.first != nil %>
+	    		<%= image_tag product.product_images.first.url(:medium) %>
+	    	<% elsif product.product_images.first == nil %>
+	    		<%= image_tag "http://tinyurl.com/ojq6q2h" %>
+	    	<% end %>
+	    		
 	  	<% end %>
 		</div>
 	   

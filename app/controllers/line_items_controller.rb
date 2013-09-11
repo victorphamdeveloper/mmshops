@@ -2,15 +2,11 @@ class LineItemsController < ApplicationController
   # GET /line_items
   # GET /line_items.json
   def index
-    if is_seller(current_user)
-      @line_items = LineItem.where("seller_id = ?", current_user.id)
-    elsif is_buyer(current_user)
-      @line_items = LineItem.where("buyer_id = ?", current_user.id)
-    end
+    @sell_line_items = LineItem.where("seller_id = ?", current_user.id)
+    @buy_line_items = LineItem.where("buyer_id = ?", current_user.id)    
         
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @line_items }
     end
   end
 

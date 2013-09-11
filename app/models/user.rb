@@ -16,9 +16,13 @@ class User < ActiveRecord::Base
   before_create :set_default_role, :create_remember_token	
   before_save { |user| user.email = email.downcase }
   
-  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level, :ban, :unread
+  attr_accessible :email, :name, :password, :password_confirmation, :role, :seller_level, :ban, :unread, :location
   has_secure_password 
 
+  has_many :products, foreign_key: :user_id, dependent: :destroy
+  has_many :buy_line_items, foreign_key: :buyer_id 
+  has_many :sell_line_items, foreign_key: :seller_id 
+  
   has_many :sended_conversations, class_name: "Conversation", foreign_key: :sender_id
   has_many :received_conversations, class_name: "Conversation", foreign_key: :receiver_id
 
@@ -39,7 +43,12 @@ class User < ActiveRecord::Base
   	if self.role == nil 
   		self.role = 3 
   	end
-    ban = 0
+    
+    if self.seller_level == nil 
+      self.seller_level = "normal"
+    end
+    self.unread = 0
+    self.ban = 0
   end
 
   private

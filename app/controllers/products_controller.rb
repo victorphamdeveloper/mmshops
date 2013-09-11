@@ -25,6 +25,8 @@ class ProductsController < ApplicationController
       elsif params[:sort_by] == "price_high_low"
         @products = @products.order("price DESC")     
       end
+    elsif !params[:seller].nil?
+      @products = @products.where("user_id = ?",params[:seller])
     elsif params[:category_id].nil? and params[:city].nil? and params[:like] != "true" and params[:sort_by].nil?
       @products = @products.order("created_at DESC")    
     end      

@@ -18,7 +18,7 @@ class Product < ActiveRecord::Base
   belongs_to :user, class_name: "User"
   belongs_to :category	
   has_many :line_items
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  #has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   has_many :product_images, dependent: :destroy
   accepts_nested_attributes_for :product_images, :allow_destroy => true
 

@@ -1,10 +1,10 @@
 namespace :db do
   desc "TODO"
   task :create_products => :environment do
-    i = 32
-    while i <= 40
+    i = 2
+    while i <= 5
       i += 1
-    	s = Seller.find(i)
+    	s = User.find(i)
     	10.times do |p|
     		name  = Faker::Name.name
     		s.products.create!(name: name, 

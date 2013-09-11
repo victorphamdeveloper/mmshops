@@ -14,8 +14,8 @@
 class LineItem < ActiveRecord::Base
   belongs_to :order	
   belongs_to :product
-  belongs_to :seller
-  belongs_to :buyer
+  belongs_to :seller, class_name: "User"
+  belongs_to :buyer, class_name: "User"
   belongs_to :cart
 
   attr_accessible :product_id, :quantity, :status, :cart_id, :buyer_id, :seller_id

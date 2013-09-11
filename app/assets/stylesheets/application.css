@@ -21,7 +21,12 @@
 	margin-bottom: 10px;
 }
 .product_img {
-	margin: 2px;
+	height: auto;
+	width: auto;
+	max-width: 400px;
+	max-height: 400px;
+	margin-bottom: 10px;
+
 }
  /* Styles for the cart in the main page */
 .cart_title {

@@ -3,17 +3,15 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <% if is_seller(@user) %>
-    	<th>Seller score</th>
-    <% end %>
+    <th>Seller score</th>
+    <th>Seller level</th>
   </tr>
 
   <tr>
   	<td><%= @user.name %></td>
   	<td><%= @user.email %></td>
-  	<% if is_seller(@user) %>
-  		<td><%= total_likes(@user) %></td>
-  	<% end %>
+  	<td><%= total_likes(@user) %></td>
+    <td><%= @user.seller_level %></td>
 	</tr>	
 </table>
 </p>
@@ -23,4 +21,6 @@
 <% elsif current_user?(@user) %>
 	| <%= link_to 'Edit', edit_user_path(@user) %> 
   | <%= link_to 'Liked Products', products_path(like: "true") %>
+  | <%= link_to 'Sell Products', products_path(seller: current_user) %>
+
 <% end %>

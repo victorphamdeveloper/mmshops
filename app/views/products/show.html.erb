@@ -1,8 +1,16 @@
 <p id="notice"><%= notice %></p>
 <div class="span4 product_show">
-  <%= image_tag @product.avatar.url(:medium), class: "avatar_img img-rounded" %>
-  <% @product.product_images.each do |photo| %>
-    <%= image_tag photo.image.url(:thumb), class: "product_img" %>
+  <% if @product.product_images.count != 0 %>
+    <% @product.product_images.each do |photo| %>
+      <% if !photo.nil? %>
+        <%= image_tag photo.image.url(:thumb), class: "product_img" %>
+      <% else %>
+        <%= image_tag "http://tinyurl.com/ojq6q2h" %>
+      <% end %>
+
+    <% end %>
+  <% else %>
+    <%= image_tag "/missing.png", class: "product_img" %>
   <% end %>
 </div>
 <div class="span4">
@@ -28,26 +36,30 @@
     <%= link_to @product.user.name, user_path(@product.user.id) %>
   </p>
 
-  <p>
-  <%= button_to 'Add to Cart', line_items_path(:product_id => @product.id), class: "btn btn-large btn-primary signup-button" %>
-  <br>
-  <%= button_to 'Buy now', line_items_path(:product_id => @product.id, buynow: "true"), class: "btn btn-large btn-primary signup-button" %>
-  </p>
+  <% if signed_in? %>
+    <% if !is_seller_of(@product) %>
+      <p>
+      <%= button_to 'Add to Cart', line_items_path(:product_id => @product.id), class: "btn btn-large btn-primary signup-button" %>
+      <br>
+      <%= button_to 'Buy now', line_items_path(:product_id => @product.id, buynow: "true"), class: "btn btn-large btn-primary signup-button" %>
+      </p>
+      <%= render 'shared/like_button' %>
+    <% end %>
 
-
-  <%= render 'shared/like_button' %>
-  <br>
-  <% if is_admin(current_user) or is_seller_of(@product) %>
-  <%= button_to 'Delete', product_path(@product), method: :delete , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
-  <% end %>
-  <br>
-  <% if is_admin(current_user) %>
-    <% if @product.ban == 0 %>
-      <%= button_to 'Ban', product_ban_path(@product), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
-    <% elsif @product.ban == 1 %>
-      <%= button_to 'Unban', product_ban_path(@product), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+    <br>
+    <% if is_admin(current_user) or is_seller_of(@product) %>
+    <%= button_to 'Delete', product_path(@product), method: :delete , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+    <% end %>
+    <br>
+    <% if is_admin(current_user) %>
+      <% if @product.ban == 0 %>
+        <%= button_to 'Ban', product_ban_path(@product), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+      <% elsif @product.ban == 1 %>
+        <%= button_to 'Unban', product_ban_path(@product), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
+      <% end %>
     <% end %>
   <% end %>
+
 
 
 </div>

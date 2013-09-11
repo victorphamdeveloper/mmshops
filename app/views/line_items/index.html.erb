@@ -2,12 +2,8 @@
 
 <table class="table">
   <tr>
-    <th>Product</th>
-    <% if is_seller(current_user) %>
-      <th>Customer</th>
-    <% elsif is_buyer(current_user) %>
-      <th>Seller</th>
-    <% end %>
+    <th>Sell Product</th>
+    <th>Customer</th>
     <th>Status</th>
     <th>Quantity</th>
     <th>Price</th>
@@ -16,22 +12,41 @@
     <th></th>
   </tr>
 
-<% @line_items.each do |line_item| %>
+<% @sell_line_items.each do |line_item| %>
   <tr>
     <td><%= link_to Product.find(line_item.product_id).name, product_path(line_item.product_id) %></td>
-    <% if is_seller(current_user) %>
-      <td><%= link_to User.find(line_item.buyer_id).name, user_path(line_item.buyer_id) %></td>
-    <% elsif is_buyer(current_user) %>
-      <td><%= link_to User.find(line_item.seller_id).name, user_path(line_item.seller_id) %></td>
-    <% end %>
+    <td><%= link_to User.find(line_item.buyer_id).name, user_path(line_item.buyer_id) %></td>
     <td><%= line_item.status %></td>
     <td><%= line_item.quantity %></td>
     <td><%= number_to_currency(line_item.total_price) %></td>
     <td><%= link_to 'View', line_item %></td>
-    <% if is_seller(current_user) %>
-      <td><%= link_to 'Update status', edit_line_item_path(line_item) %></td>
-      <td><%= link_to 'Message buyer', messages_path(receiver_id: line_item.seller_id) %></td>
-    <% end %>
+    <td><%= link_to 'Update status', edit_line_item_path(line_item) %></td>
+    <td><%= link_to 'Message buyer', messages_path(receiver_id: line_item.buyer_id) %></td>
+  </tr>
+<% end %>
+</table>
+
+
+<table class="table">
+  <tr>
+    <th>Ordered Product</th>
+    <th>Seller</th>
+    <th>Status</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @buy_line_items.each do |line_item| %>
+  <tr>
+    <td><%= link_to Product.find(line_item.product_id).name, product_path(line_item.product_id) %></td>
+    <td><%= link_to User.find(line_item.seller_id).name, user_path(line_item.seller_id) %></td>
+    <td><%= line_item.status %></td>
+    <td><%= line_item.quantity %></td>
+    <td><%= number_to_currency(line_item.total_price) %></td>
+    <td><%= link_to 'View', line_item %></td>
   </tr>
 <% end %>
 </table>

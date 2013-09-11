@@ -82,10 +82,6 @@
 				<%= f.label :category_id %>
 	    	<%= f.number_field :category_id %>
 
-	    	<%= f.label :avatar, "Select an image for the product" %>
-	    	<%= image_tag @product.avatar.url(:thumb) %>
-	    	<%= f.file_field :avatar %>
-
 				<%= f.label :product_images, "Edit images for the product" %>
 	    	<%= f.fields_for :product_images do |photo| %>
       				

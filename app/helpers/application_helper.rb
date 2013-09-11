@@ -10,10 +10,8 @@ module ApplicationHelper
 	end
 
 	def role_title(role)
-		if role == 2
-			"Seller"
-		elsif role == 3
-			"Buyer" 
+		if role == 3
+			"User" 
 		elsif role == 1
 			"Admin"
 		end
@@ -40,16 +38,8 @@ module ApplicationHelper
 		end
 	end
 
-	def is_buyer(user)
-		user != nil and user.role == 3
-	end
-
 	def is_admin(user)
 		user != nil and user.role == 1 
-	end
-	
-	def is_seller(user)
-		user != nil and user.role == 2
 	end
 
 	def is_seller_of(product)
@@ -57,14 +47,11 @@ module ApplicationHelper
 	end
 
 	def total_likes(user)
-    	if is_seller(user)
-    			user = user.becomes(Seller)
-      		result = 0
-      		user.products.each do |p|
-        	result += p.likes.count 
-      		end
-      		result
-    	end
-  	end
+    result = 0
+    user.products.each do |p|
+      result += p.likes.count 
+    end
+    result  	
+  end
 
 end

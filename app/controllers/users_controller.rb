@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: [:destroy, :ban, :manage_seller]
+  before_filter :admin_user, only: [:index, :destroy, :ban, :manage_seller]
 
   # GET /users
   # GET /users.json
@@ -13,18 +13,10 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
-    if @user.role == 1
-      @user = @user.becomes(Admin)
-    elsif @user.role == 2
-      @user = @user.becomes(Seller)
-    elsif @user.role == 3
-      @user = @user.becomes(Buyer)
-    end
-      
   end
 
   def manage_seller
-    @users = User.where("role = 2")
+    @users = User.where("role = 3")
     if params[:sort_by] == "score_high_low"
       @users = @users.sort!{|a,b| total_likes(a) <=> total_likes(b) }
     elsif params[:sort_by] == "score_low_high"
@@ -59,10 +51,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.create(params[:user]) 
-    if @user.role == 2
-      @user.seller_level = 'normal'
-    end
-    @user.ban = 0
+   
     if @user.save
       sign_in @user
       flash[:succeess] = "Sign up successfully"      
@@ -105,8 +94,8 @@ class UsersController < ApplicationController
     else
       flash[:failure] = "Upgrade failed"
       redirect_to root_url
-
     end
+
   end
 
    def read
