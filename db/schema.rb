@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130911161937) do
+ActiveRecord::Schema.define(:version => 20130911194009) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(:version => 20130911161937) do
     t.integer  "receiver_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "flags", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "liked_items", :force => true do |t|
@@ -112,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20130911161937) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "ban"
+    t.integer  "flag"
   end
 
   create_table "seller_infos", :force => true do |t|

@@ -3,7 +3,7 @@
   <% if @product.product_images.count != 0 %>
     <% @product.product_images.each do |photo| %>
       <% if !photo.nil? %>
-        <%= image_tag photo.image.url(:thumb), class: "product_img" %>
+        <%= image_tag photo.image.url(:small), class: "product_img" %>
       <% else %>
         <%= image_tag "http://tinyurl.com/ojq6q2h" %>
       <% end %>
@@ -44,8 +44,12 @@
       <%= button_to 'Buy now', line_items_path(:product_id => @product.id, buynow: "true"), class: "btn btn-large btn-primary signup-button" %>
       </p>
       <%= render 'shared/like_button' %>
-    <% end %>
+      <br>
 
+      <%= render "shared/flag_button" %>
+
+    <% end %>
+    
     <br>
     <% if is_admin(current_user) or is_seller_of(@product) %>
     <%= button_to 'Delete', product_path(@product), method: :delete , data: { confirm: "Are you sure?" },class: "btn btn-large btn-primary signup-button" %>
@@ -63,24 +67,3 @@
 
 
 </div>
-
-<!--<p>
-  <b>User:</b>
-  <%= @product.user_id %>
-</p>
-
-
-
-
-
-
-<% @product.product_images.each do |photo| %>
-  <%= image_tag photo.image.url(:original) %>
-
-<% end %>
--->
-<!--
-<br>
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
--->

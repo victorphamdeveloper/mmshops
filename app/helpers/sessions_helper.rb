@@ -45,11 +45,4 @@ module SessionsHelper
     end
   end
 
-  def filter_seller
-    unless is_seller(current_user)
-      redirect_to root_url, notice: "You must be a seller to do this."
-    end
-  end
-
-	
 end

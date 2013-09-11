@@ -1,0 +1,16 @@
+<% if signed_in? %>
+	<div id="flag">
+		<% if flag = current_user.flags.find_by_product_id(@product.id) %>
+			<%= form_for flag, :html => { :method => :delete },
+			                     :remote => true do |f| %>
+				<%= f.submit "Unflag", class: "btn btn-large btn-primary signup-button" %>
+			<% end %>
+		<% else %>
+			<%= form_for current_user.flags.build(product_id: @product.id, user_id: current_user.id), :remote => true do |f| %>
+		  	<div><%= f.hidden_field :product_id %></div>
+		  	<div><%= f.hidden_field :user_id %></div>
+				<%= f.submit "Flag", class: "btn btn-large btn-primary" %>
+			<% end %>
+		<% end %>
+	</div>
+<% end %>

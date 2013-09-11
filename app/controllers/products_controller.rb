@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :update, :destroy]
-  before_filter :filter_seller, only: [:create, :update]
   before_filter :filter_ban, only: [:create, :update, :new]
   before_filter :filter_ban_product, only: [:show, :update, :edit]
   before_filter :seller_or_admin_of_this_product, only:  [:update, :edit, :destroy]
@@ -41,7 +40,7 @@ class ProductsController < ApplicationController
 
   def search
     if !params[:key].nil?
-    @products = Product.where("name like '%#{params[:key]}%'").paginate(page: params[:page])
+    @products = Product.where("name like '%#{params[:key]}%' and location = ?", current_user.location).paginate(page: params[:page])
     else
       @products = Product.all.paginate(page: params[:page])
     end
@@ -112,7 +111,6 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = current_user.products.create(params[:product])
-    @product.ban = 0
     if @product.save
       flash[:success] = "You created a new product"
       redirect_to root_url

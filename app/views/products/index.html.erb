@@ -22,7 +22,7 @@
 		<div class="product-img">
 	  	<%= link_to product do %>
 	  		<% if product.product_images.first != nil %>
-	    		<%= image_tag product.product_images.first.url(:medium) %>
+	    		<%= image_tag product.product_images.first.image.url(:small) %>
 	    	<% elsif product.product_images.first == nil %>
 	    		<%= image_tag "http://tinyurl.com/ojq6q2h" %>
 	    	<% end %>

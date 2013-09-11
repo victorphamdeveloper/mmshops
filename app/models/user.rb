@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   has_many :buy_line_items, foreign_key: :buyer_id 
   has_many :sell_line_items, foreign_key: :seller_id 
   
+  has_many :flags, foreign_key: :user_id, dependent: :destroy
+  has_many :flag_products, class_name: "Product", through: :flags, source: "product" 
+
   has_many :sended_conversations, class_name: "Conversation", foreign_key: :sender_id
   has_many :received_conversations, class_name: "Conversation", foreign_key: :receiver_id
 

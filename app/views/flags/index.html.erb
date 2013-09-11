@@ -1,0 +1,30 @@
+<h1>Listing flags</h1>
+
+<table class="table">
+  <tr>
+    <th>User</th>
+    <th>Product</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @flags.each do |flag| %>
+  <tr>
+    <td><%= User.find(flag.user_id).name %></td>
+    <td><%= Product.find(flag.product_id).name %></td>   
+    <td><%= button_to 'Unflag', flag, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
+    <td>
+    <%= button_to 'Delete', product_path(flag.product_id), method: :delete , data: { confirm: "Are you sure?" },class: "btn-primary " %>
+    </td>
+    <td>
+    <%= button_to 'Ban', product_ban_path(flag.product_id), method: :put , data: { confirm: "Are you sure?" },class: "btn btn-primary" %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

@@ -25,15 +25,24 @@ class Product < ActiveRecord::Base
   has_many :likes, foreign_key: "product_id"
   has_many :like_users, class_name: "User", through: :likes, source: "user"
 
-  before_destroy :ensure_not_referenced_by_any_line_item
+  has_many :flags, foreign_key: :product_id, dependent: :destroy
+  has_many :flag_users, class_name: "User", through: :flags, source: "user" 
 
-  attr_accessible :category_id, :description, :name, :price, :user_id, :location, :avatar, :product_images_attributes, :ban
+  before_destroy :ensure_not_referenced_by_any_line_item
+  before_create :set_default_values
+  attr_accessible :category_id, :description, :name, :price, :user_id, :location, :avatar, :product_images_attributes, :ban, :flag
 
   validates :name, presence: true
   validates :location, presence: true
   validates :category_id, presence: true
   validates :user_id, presence: true
   validate :product_limit_validates, on: :create
+
+  def set_default_values
+    self.flag = 0
+    self.ban = 0
+  end
+
 
   def product_limit_validates
     s = Seller.find(user.id)

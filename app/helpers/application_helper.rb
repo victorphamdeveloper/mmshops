@@ -38,6 +38,12 @@ module ApplicationHelper
 		end
 	end
 
+	def filter_admin
+		unless is_admin(current_user)
+			redirect_to root_url, notice: "You must be admin to view this"
+		end
+	end
+	
 	def is_admin(user)
 		user != nil and user.role == 1 
 	end
