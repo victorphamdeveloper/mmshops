@@ -40,7 +40,7 @@ font-weight: bold;
 border-top: 1px solid #595;
 }
 
-#user_role, #product_location{
+#user_role, #product_location, #product_category_id {
 	min-height: 40px;
 }
 /* Common styles of menus */
@@ -51,1000 +51,176 @@ border-top: 1px solid #595;
 	float: left;
 	position: relative;
 	margin-bottom: 10px;
-
-	-webkit-perspective: 1000px;
-	-moz-perspective: 1000px;
-	perspective: 1000px;
-	-webkit-perspective-origin: 50% 200%;
-	-moz-perspective-origin: 50% 200%;
-	perspective-origin: 50% 200%;
+	margin-left: 150px;
 }
 
-.dl-menuwrapper:first-child {
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Based partially on Matthew Carroll's keyboard accessible flavor of Suckerfish 
+ * Dropdowns by Patrick Griffiths and Dan Webb. 
+ * http://carroll.org.uk/sandbox/suckerfish/bones2.html
+ */
+
+/* ----[ LINKS ]----*/
+
+/* all menu links */
+#nav a, #subMenusContainer a{
+	text-decoration:none;
+	display:block;
+	padding:10px 20px;
+	background-color:#fff ;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+/* Just main menu links --[for non-javascript users this applies to submenu links as well]*/
+#nav a{
+	margin:0;
+}
+
+/* Just sub menu links */
+#subMenusContainer a, #nav li li a{
+	text-align:left;
+
+}
+
+/* All menu links on hover or focus */
+#nav a:hover, #nav a:focus, #subMenusContainer a:hover, #subMenusContainer a:focus, #nav a.mainMenuParentBtnFocused, #subMenusContainer a.subMenuParentBtnFocused{
 	
+	color:#FFF;
 }
 
-.dl-menuwrapper button {
-	background: #ccc;
-	border: none;
-	width: 48px;
-	height: 45px;
-	text-indent: -900em;
-	overflow: hidden;
-	position: relative;
-	cursor: pointer;
-	outline: none;
+/* sub menu links on hover or focus */
+#subMenusContainer a:hover, 
+#subMenusContainer a:focus, 
+#nav a.mainMenuParentBtnFocused, 
+#subMenusContainer a.subMenuParentBtnFocused,
+#nav li a:hover,
+#nav li a:focus{
+	background-color:#006ccc;
+	color:#FFF;
 }
 
-.dl-menuwrapper button:hover,
-.dl-menuwrapper button.dl-active,
-.dl-menuwrapper ul {
-	background: #0088cc;
+/* Parent Sub Menu Links ---[javascript users only]*/
+.subMenuParentBtn{ 
+	background: url(../img/arrow_right.gif) right center no-repeat;  
 }
 
-.dl-menuwrapper button:after {
-	content: '';
-	position: absolute;
-	width: 68%;
-	height: 5px;
-	background: #fff;
-	top: 10px;
-	left: 16%;
-	box-shadow: 
-		0 10px 0 #fff, 
-		0 20px 0 #fff;
+/* Parent Sub Menu Links on hover or focus ---[javascript users only]*/
+.subMenuParentBtnFocused{ 
+	background: url(../img/arrow_right_over.gif) right center no-repeat;  
 }
 
-.dl-menuwrapper ul {
+/* Parent Main Menu Links ---[javascript users only]*/
+.mainMenuParentBtn{	
+	 background: url(/arrow_right.gif) right center no-repeat; 
+}
+
+/* Parent Main Menu Links on hover or focus ---[javascript users only]*/
+.mainMenuParentBtnFocused{	
+	background: url(/arrow_right_over.gif) right center no-repeat; 
+}
+
+/* ----[ OLs ULs, LIs, and DIVs ]----*/
+
+/* Submenu Outer Wrapper - each submenu is inside a div with this class - javascript users only */
+.smOW{ 
+	display:none; 
+	position: absolute; 
+	overflow:hidden; 
+	/*the 2px left & right padding lets you have a 1px border 
+	  on the ul or ol inside since overflow is set to hidden*/
+	padding:0 2px;
+	margin:0 0 0 -2px;
+}
+
+/* All submenu OLs and ULs */
+#nav ol, #nav ul, #subMenusContainer ul, #subMenusContainer ol {	
+	/*border around submenu goes here*/
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	background:#fff;	
+	border:1px solid #000; 
+	left:0;
+
+}
+
+/* All ULs and OLs */
+#nav, #nav ul, #nav ol, #subMenusContainer ul, #subMenusContainer ol { 
 	padding: 0;
-	list-style: none;
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	transform-style: preserve-3d;
-}
-
-.dl-menuwrapper li {
-	position: relative;
-}
-
-.dl-menuwrapper li a {
-	display: block;
-	position: relative;
-	padding: 5px 20px;
-	font-size: 16px;
-	line-height: 20px;
-	font-weight: 300;
-	color: #fff;
-	outline: none;
-}
-
-.no-touch .dl-menuwrapper li a:hover {
-	background: rgba(255,248,213,0.1);
-}
-
-.dl-menuwrapper li.dl-back > a {
-	background: rgba(0,0,0,0.1);
-}
-
-.dl-menuwrapper li.dl-back:after,
-.dl-menuwrapper li > a:not(:only-child):after {
-	position: absolute;
-	top: 0;
-	font-family: 'icomoon';
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	content: "\25B6";
-}
-
-.dl-menuwrapper li.dl-back:after {
-	left: 0px;
-	color: rgba(212,204,198,0.3);
-	-webkit-transform: rotate(180deg);
-	-moz-transform: rotate(180deg);
-	transform: rotate(180deg);
-}
-
-.dl-menuwrapper li > a:after {
-	right: 10px;
-	color: rgba(0,0,0,0.15);
-}
-
-.dl-menuwrapper .dl-menu {
-	margin: 4px 0 0 0;
-	position: absolute;
-	width: 100%;
-	opacity: 0;
-	pointer-events: none;
-	-webkit-transform: translateY(10px);
-	-moz-transform: translateY(10px);
-	transform: translateY(10px);
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility: hidden;
-	backface-visibility: hidden;
-}
-
-.dl-menuwrapper .dl-menu.dl-menu-toggle {
-	-webkit-transition: all 0.3s ease;
-	-moz-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-.dl-menuwrapper .dl-menu.dl-menuopen {
-	opacity: 1;
-	pointer-events: auto;
-	-webkit-transform: translateY(0px);
-	-moz-transform: translateY(0px);
-	transform: translateY(0px);
-}
-
-/* Hide the inner submenus */
-.dl-menuwrapper li .dl-submenu {
-	display: none;
-}
-
-/* 
-When a submenu is openend, we will hide all li siblings.
-For that we give a class to the parent menu called "dl-subview".
-We also hide the submenu link. 
-The opened submenu will get the class "dl-subviewopen".
-All this is done for any sub-level being entered.
-*/
-.dl-menu.dl-subview li,
-.dl-menu.dl-subview li.dl-subviewopen > a,
-.dl-menu.dl-subview li.dl-subview > a {
-	display: none;
-}
-
-.dl-menu.dl-subview li.dl-subview,
-.dl-menu.dl-subview li.dl-subview .dl-submenu,
-.dl-menu.dl-subview li.dl-subviewopen,
-.dl-menu.dl-subview li.dl-subviewopen > .dl-submenu,
-.dl-menu.dl-subview li.dl-subviewopen > .dl-submenu > li {
-	display: block;
-}
-
-/* Dynamically added submenu outside of the menu context */
-.dl-menuwrapper > .dl-submenu {
-	position: absolute;
-	width: 100%;
-	top: 50px;
-	left: 0;
 	margin: 0;
-}
-
-/* Animation classes for moving out and in */
-
-.dl-menu.dl-animate-out-1 {
-	-webkit-animation: MenuAnimOut1 0.4s;
-	-moz-animation: MenuAnimOut1 0.4s;
-	animation: MenuAnimOut1 0.4s;
-}
-
-.dl-menu.dl-animate-out-2 {
-	-webkit-animation: MenuAnimOut2 0.3s ease-in-out;
-	-moz-animation: MenuAnimOut2 0.3s ease-in-out;
-	animation: MenuAnimOut2 0.3s ease-in-out;
-}
-
-.dl-menu.dl-animate-out-3 {
-	-webkit-animation: MenuAnimOut3 0.4s ease;
-	-moz-animation: MenuAnimOut3 0.4s ease;
-	animation: MenuAnimOut3 0.4s ease;
-}
-
-.dl-menu.dl-animate-out-4 {
-	-webkit-animation: MenuAnimOut4 0.4s ease;
-	-moz-animation: MenuAnimOut4 0.4s ease;
-	animation: MenuAnimOut4 0.4s ease;
-}
-
-.dl-menu.dl-animate-out-5 {
-	-webkit-animation: MenuAnimOut5 0.4s ease;
-	-moz-animation: MenuAnimOut5 0.4s ease;
-	animation: MenuAnimOut5 0.4s ease;
-}
-
-@-webkit-keyframes MenuAnimOut1 {
-	50% {
-		-webkit-transform: translateZ(-250px) rotateY(30deg);
-	}
-	75% {
-		-webkit-transform: translateZ(-372.5px) rotateY(15deg);
-		opacity: .5;
-	}
-	100% {
-		-webkit-transform: translateZ(-500px) rotateY(0deg);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes MenuAnimOut2 {
-	100% {
-		-webkit-transform: translateX(-100%);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes MenuAnimOut3 {
-	100% {
-		-webkit-transform: translateZ(300px);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes MenuAnimOut4 {
-	100% {
-		-webkit-transform: translateZ(-300px);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes MenuAnimOut5 {
-	100% {
-		-webkit-transform: translateY(40%);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes MenuAnimOut1 {
-	50% {
-		-moz-transform: translateZ(-250px) rotateY(30deg);
-	}
-	75% {
-		-moz-transform: translateZ(-372.5px) rotateY(15deg);
-		opacity: .5;
-	}
-	100% {
-		-moz-transform: translateZ(-500px) rotateY(0deg);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes MenuAnimOut2 {
-	100% {
-		-moz-transform: translateX(-100%);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes MenuAnimOut3 {
-	100% {
-		-moz-transform: translateZ(300px);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes MenuAnimOut4 {
-	100% {
-		-moz-transform: translateZ(-300px);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes MenuAnimOut5 {
-	100% {
-		-moz-transform: translateY(40%);
-		opacity: 0;
-	}
-}
-
-@keyframes MenuAnimOut1 {
-	50% {
-		transform: translateZ(-250px) rotateY(30deg);
-	}
-	75% {
-		transform: translateZ(-372.5px) rotateY(15deg);
-		opacity: .5;
-	}
-	100% {
-		transform: translateZ(-500px) rotateY(0deg);
-		opacity: 0;
-	}
-}
-
-@keyframes MenuAnimOut2 {
-	100% {
-		transform: translateX(-100%);
-		opacity: 0;
-	}
-}
-
-@keyframes MenuAnimOut3 {
-	100% {
-		transform: translateZ(300px);
-		opacity: 0;
-	}
-}
-
-@keyframes MenuAnimOut4 {
-	100% {
-		transform: translateZ(-300px);
-		opacity: 0;
-	}
-}
-
-@keyframes MenuAnimOut5 {
-	100% {
-		transform: translateY(40%);
-		opacity: 0;
-	}
-}
-
-.dl-menu.dl-animate-in-1 {
-	-webkit-animation: MenuAnimIn1 0.3s;
-	-moz-animation: MenuAnimIn1 0.3s;
-	animation: MenuAnimIn1 0.3s;
-}
-
-.dl-menu.dl-animate-in-2 {
-	-webkit-animation: MenuAnimIn2 0.3s ease-in-out;
-	-moz-animation: MenuAnimIn2 0.3s ease-in-out;
-	animation: MenuAnimIn2 0.3s ease-in-out;
-}
-
-.dl-menu.dl-animate-in-3 {
-	-webkit-animation: MenuAnimIn3 0.4s ease;
-	-moz-animation: MenuAnimIn3 0.4s ease;
-	animation: MenuAnimIn3 0.4s ease;
-}
-
-.dl-menu.dl-animate-in-4 {
-	-webkit-animation: MenuAnimIn4 0.4s ease;
-	-moz-animation: MenuAnimIn4 0.4s ease;
-	animation: MenuAnimIn4 0.4s ease;
-}
-
-.dl-menu.dl-animate-in-5 {
-	-webkit-animation: MenuAnimIn5 0.4s ease;
-	-moz-animation: MenuAnimIn5 0.4s ease;
-	animation: MenuAnimIn5 0.4s ease;
-}
-
-@-webkit-keyframes MenuAnimIn1 {
-	0% {
-		-webkit-transform: translateZ(-500px) rotateY(0deg);
-		opacity: 0;
-	}
-	20% {
-		-webkit-transform: translateZ(-250px) rotateY(30deg);
-		opacity: 0.5;
-	}
-	100% {
-		-webkit-transform: translateZ(0px) rotateY(0deg);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes MenuAnimIn2 {
-	0% {
-		-webkit-transform: translateX(-100%);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes MenuAnimIn3 {
-	0% {
-		-webkit-transform: translateZ(300px);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes MenuAnimIn4 {
-	0% {
-		-webkit-transform: translateZ(-300px);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes MenuAnimIn5 {
-	0% {
-		-webkit-transform: translateY(40%);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes MenuAnimIn1 {
-	0% {
-		-moz-transform: translateZ(-500px) rotateY(0deg);
-		opacity: 0;
-	}
-	20% {
-		-moz-transform: translateZ(-250px) rotateY(30deg);
-		opacity: 0.5;
-	}
-	100% {
-		-moz-transform: translateZ(0px) rotateY(0deg);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes MenuAnimIn2 {
-	0% {
-		-moz-transform: translateX(-100%);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes MenuAnimIn3 {
-	0% {
-		-moz-transform: translateZ(300px);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes MenuAnimIn4 {
-	0% {
-		-moz-transform: translateZ(-300px);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes MenuAnimIn5 {
-	0% {
-		-moz-transform: translateY(40%);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-@keyframes MenuAnimIn1 {
-	0% {
-		transform: translateZ(-500px) rotateY(0deg);
-		opacity: 0;
-	}
-	20% {
-		transform: translateZ(-250px) rotateY(30deg);
-		opacity: 0.5;
-	}
-	100% {
-		transform: translateZ(0px) rotateY(0deg);
-		opacity: 1;
-	}
-}
-
-@keyframes MenuAnimIn2 {
-	0% {
-		transform: translateX(-100%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes MenuAnimIn3 {
-	0% {
-		transform: translateZ(300px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes MenuAnimIn4 {
-	0% {
-		transform: translateZ(-300px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes MenuAnimIn5 {
-	0% {
-		transform: translateY(40%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-in-1 {
-	-webkit-animation: SubMenuAnimIn1 0.4s ease;
-	-moz-animation: SubMenuAnimIn1 0.4s ease;
-	animation: SubMenuAnimIn1 0.4s ease;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-in-2 {
-	-webkit-animation: SubMenuAnimIn2 0.3s ease-in-out;
-	-moz-animation: SubMenuAnimIn2 0.3s ease-in-out;
-	animation: SubMenuAnimIn2 0.3s ease-in-out;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-in-3 {
-	-webkit-animation: SubMenuAnimIn3 0.4s ease;
-	-moz-animation: SubMenuAnimIn3 0.4s ease;
-	animation: SubMenuAnimIn3 0.4s ease;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-in-4 {
-	-webkit-animation: SubMenuAnimIn4 0.4s ease;
-	-moz-animation: SubMenuAnimIn4 0.4s ease;
-	animation: SubMenuAnimIn4 0.4s ease;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-in-5 {
-	-webkit-animation: SubMenuAnimIn5 0.4s ease;
-	-moz-animation: SubMenuAnimIn5 0.4s ease;
-	animation: SubMenuAnimIn5 0.4s ease;
-}
-
-@-webkit-keyframes SubMenuAnimIn1 {
-	0% {
-		-webkit-transform: translateX(50%);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimIn2 {
-	0% {
-		-webkit-transform: translateX(100%);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimIn3 {
-	0% {
-		-webkit-transform: translateZ(-300px);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimIn4 {
-	0% {
-		-webkit-transform: translateZ(300px);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimIn5 {
-	0% {
-		-webkit-transform: translateZ(-200px);
-		opacity: 0;
-	}
-	100% {
-		-webkit-transform: translateZ(0);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes SubMenuAnimIn1 {
-	0% {
-		-moz-transform: translateX(50%);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes SubMenuAnimIn2 {
-	0% {
-		-moz-transform: translateX(100%);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes SubMenuAnimIn3 {
-	0% {
-		-moz-transform: translateZ(-300px);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes SubMenuAnimIn4 {
-	0% {
-		-moz-transform: translateZ(300px);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@-moz-keyframes SubMenuAnimIn5 {
-	0% {
-		-moz-transform: translateZ(-200px);
-		opacity: 0;
-	}
-	100% {
-		-moz-transform: translateZ(0);
-		opacity: 1;
-	}
-}
-
-@keyframes SubMenuAnimIn1 {
-	0% {
-		transform: translateX(50%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes SubMenuAnimIn2 {
-	0% {
-		transform: translateX(100%);
-		opacity: 0;
-	}
-	100% {
-		transform: translateX(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes SubMenuAnimIn3 {
-	0% {
-		transform: translateZ(-300px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes SubMenuAnimIn4 {
-	0% {
-		transform: translateZ(300px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateZ(0px);
-		opacity: 1;
-	}
-}
-
-@keyframes SubMenuAnimIn5 {
-	0% {
-		transform: translateZ(-200px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateZ(0);
-		opacity: 1;
-	}
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-out-1 {
-	-webkit-animation: SubMenuAnimOut1 0.4s ease;
-	-moz-animation: SubMenuAnimOut1 0.4s ease;
-	animation: SubMenuAnimOut1 0.4s ease;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-out-2 {
-	-webkit-animation: SubMenuAnimOut2 0.3s ease-in-out;
-	-moz-animation: SubMenuAnimOut2 0.3s ease-in-out;
-	animation: SubMenuAnimOut2 0.3s ease-in-out;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-out-3 {
-	-webkit-animation: SubMenuAnimOut3 0.4s ease;
-	-moz-animation: SubMenuAnimOut3 0.4s ease;
-	animation: SubMenuAnimOut3 0.4s ease;
-}
-
-.dl-menuwrapper > .dl-submenu.dl-animate-out-4 {
-	-webkit-animation: SubMenuAnimOut4 0.4s ease;
-	-moz-animation: SubMenuAnimOut4 0.4s ease;
-	animation: SubMenuAnimOut4 0.4s ease;
-}
+	list-style: none;
+	line-height: 1em;
 
-.dl-menuwrapper > .dl-submenu.dl-animate-out-5 {
-	-webkit-animation: SubMenuAnimOut5 0.4s ease;
-	-moz-animation: SubMenuAnimOut5 0.4s ease;
-	animation: SubMenuAnimOut5 0.4s ease;
 }
 
-@-webkit-keyframes SubMenuAnimOut1 {
-	0% {
-		-webkit-transform: translateX(0%);
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translateX(50%);
-		opacity: 0;
-	}
+/* List items in main menu --[for non-javascript users this applies to submenus as well]  */
+#nav li { 
+	/*great place to use a background image as a divider*/
+	display:block;
+	list-style:none;
+	position:relative;
 }
 
-@-webkit-keyframes SubMenuAnimOut2 {
-	0% {
-		-webkit-transform: translateX(0%);
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translateX(100%);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimOut3 {
-	0% {
-		-webkit-transform: translateZ(0px);
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translateZ(-300px);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimOut4 {
-	0% {
-		-webkit-transform: translateZ(0px);
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translateZ(300px);
-		opacity: 0;
-	}
-}
-
-@-webkit-keyframes SubMenuAnimOut5 {
-	0% {
-		-webkit-transform: translateZ(0);
-		opacity: 1;
-	}
-	100% {
-		-webkit-transform: translateZ(-200px);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes SubMenuAnimOut1 {
-	0% {
-		-moz-transform: translateX(0%);
-		opacity: 1;
-	}
-	100% {
-		-moz-transform: translateX(50%);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes SubMenuAnimOut2 {
-	0% {
-		-moz-transform: translateX(0%);
-		opacity: 1;
-	}
-	100% {
-		-moz-transform: translateX(100%);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes SubMenuAnimOut3 {
-	0% {
-		-moz-transform: translateZ(0px);
-		opacity: 1;
-	}
-	100% {
-		-moz-transform: translateZ(-300px);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes SubMenuAnimOut4 {
-	0% {
-		-moz-transform: translateZ(0px);
-		opacity: 1;
-	}
-	100% {
-		-moz-transform: translateZ(300px);
-		opacity: 0;
-	}
-}
-
-@-moz-keyframes SubMenuAnimOut5 {
-	0% {
-		-moz-transform: translateZ(0);
-		opacity: 1;
-	}
-	100% {
-		-moz-transform: translateZ(-200px);
-		opacity: 0;
-	}
-}
-
-@keyframes SubMenuAnimOut1 {
-	0% {
-		transform: translateX(0%);
-		opacity: 1;
-	}
-	100% {
-		transform: translateX(50%);
-		opacity: 0;
-	}
-}
-
-@keyframes SubMenuAnimOut2 {
-	0% {
-		transform: translateX(0%);
-		opacity: 1;
-	}
-	100% {
-		transform: translateX(100%);
-		opacity: 0;
-	}
-}
-
-@keyframes SubMenuAnimOut3 {
-	0% {
-		transform: translateZ(0px);
-		opacity: 1;
-	}
-	100% {
-		transform: translateZ(-300px);
-		opacity: 0;
-	}
-}
-
-@keyframes SubMenuAnimOut4 {
-	0% {
-		transform: translateZ(0px);
-		opacity: 1;
-	}
-	100% {
-		transform: translateZ(300px);
-		opacity: 0;
-	}
-}
-
-@keyframes SubMenuAnimOut5 {
-	0% {
-		transform: translateZ(0);
-		opacity: 1;
-	}
-	100% {
-		transform: translateZ(-200px);
-		opacity: 0;
-	}
-}
-
-/* No JS Fallback */
-.no-js .dl-menuwrapper .dl-menu {
-	position: relative;
-	opacity: 1;
-	-webkit-transform: none;
-	-moz-transform: none;
-	transform: none;
-}
-
-.no-js .dl-menuwrapper li .dl-submenu {
-	display: block;
-}
-
-.no-js .dl-menuwrapper li.dl-back {
-	display: none;
-}
+#subMenusContainer li{
+	list-style: none;
 
-.no-js .dl-menuwrapper li > a:not(:only-child) {
-	background: rgba(0,0,0,0.1);
 }
 
-.no-js .dl-menuwrapper li > a:not(:only-child):after {
-	content: '';
+/* main menu ul or ol elment */
+#nav{
+	display:block;
+	position: absolute;
+	list-style:none;
+	margin:0 0 0 -280px;
+	width: auto;
+	z-index:5;
+	top:20px;
+	left:50%;
+	text-align: right;
+	display:block;
 }
 
-/* Colors for demos */
+#subMenusContainer{	display:block; 	position:absolute;	top:0;	left:0;	width:100%;	height:0;	overflow:visible;	z-index:1000000000; }
 
-/* Demo 1 */
-.demo-1 .dl-menuwrapper button {
-	background: #c62860;
-}
-
-.demo-1 .dl-menuwrapper button:hover,
-.demo-1 .dl-menuwrapper button.dl-active,
-.demo-1 .dl-menuwrapper ul {
-	background: #9e1847;
-}
-
-/* Demo 2 */
-.demo-2 .dl-menuwrapper button {
-	background: #e86814;
-}
 
-.demo-2 .dl-menuwrapper button:hover,
-.demo-2 .dl-menuwrapper button.dl-active,
-.demo-2 .dl-menuwrapper ul {
-	background: #D35400;
-}
-
-/* Demo 3 */
-.demo-3 .dl-menuwrapper button {
-	background: #08cbc4;
-}
+/* --------------------------[ The below is just for non-javscript users ]--------------------------*/
+#nav li li{	float:none; }
 
-.demo-3 .dl-menuwrapper button:hover,
-.demo-3 .dl-menuwrapper button.dl-active,
-.demo-3 .dl-menuwrapper ul {
-	background: #00b4ae;
+#nav li li a{ /* Just submenu links*/	
+	position:relative;
+	float:none;
 }
 
-/* Demo 4 */
-.demo-4 .dl-menuwrapper button {
-	background: #90b912;
+#nav li ul { /* second-level lists */
+	position: absolute;
+	width: 10em;
+	margin-left: -1000em; /* using left instead of display to hide menus because display: none isn't read by screen readers */
 }
 
-.demo-4 .dl-menuwrapper button:hover,
-.demo-4 .dl-menuwrapper button.dl-active,
-.demo-4 .dl-menuwrapper ul {
-	background: #79a002;
-}
+/* third-and-above-level lists */
+#nav li ul ul { margin: -1em 0 0 -1000em; }
+#nav li:hover ul ul {	margin-left: -1000em; }
 
-/* Demo 5 */
-.demo-5 .dl-menuwrapper button {
-	background: #744783;
-}
+ /* lists nested under hovered list items */
+#nav li:hover ul{	margin-left: 186px; margin-top:-2.5em;}
+#nav li li:hover ul {	margin-left: 10em; }
 
-.demo-5 .dl-menuwrapper button:hover,
-.demo-5 .dl-menuwrapper button.dl-active,
-.demo-5 .dl-menuwrapper ul {
-	background: #643771;
-}
+/* extra positioning rules for limited noscript keyboard accessibility */
+#nav li a:focus + ul {  margin-left: 186px; margin-top:-2.5em; }
+#nav li li a:focus + ul { left:186px; margin-left: 1010em; margin-top:-2.5em;}
+#nav li li a:focus {left:186px;  margin-left:1000em; width:10em;  margin-top:-2.5em;}
+#nav li li li a:focus {left:186px; margin-left: 2010em; width: 10em;  margin-top:-2.5em;}
+#nav li:hover a:focus{ margin-left: 0; }
+#nav li li:hover a:focus + ul { margin-left: 10em; }

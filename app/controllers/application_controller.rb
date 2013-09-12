@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include UsersHelper
   include ProductsHelper
+  include CategoriesHelper
   include ApplicationHelper
   
   def handle_unverified_request

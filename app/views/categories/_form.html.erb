@@ -10,16 +10,16 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :parent_id %><br />
-    <%= f.number_field :parent_id %>
+    <%= f.label :parent_id, "Parent Category" %>
+    <%= select("category", "parent_id", Category.all.collect { |c| [ c.name, c.id ]}) %>     
   </div>
+    
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-large btn-primary signup-button" %>
   </div>
 <% end %>

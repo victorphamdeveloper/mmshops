@@ -10,10 +10,10 @@
 <body>
    
   <%= render 'layouts/header' %>
-  <div class="container">
+  <div class="container" id="container">
      <div class="row">
       
-      <% unless @skip_sidebar %>  
+      <% if @use_sidebar %>  
         <%= render 'layouts/sidebar' %>
 
         <div class="span9">
@@ -25,7 +25,7 @@
         </div>
       <% else %>
         <div>
-          <div class="span8 offset2">
+          <div class="span9">
           <% flash.each do |key, value| %>
             <!--<div class="alert alert-<%= key %>"><%= value %></div>-->
             <%= content_tag(:div, value, class: "alert alert-#{key}") %>

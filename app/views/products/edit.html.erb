@@ -1,6 +1,33 @@
-<h1>Editing product</h1>
+<div class="span9 input-form">
+	<h1>Edit Product</h1>
+	<%= form_for(@product, :html => { :multipart => true }) do |f| %>
 
-<%= render 'form' %>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
 
-<%= link_to 'Show', @product %> |
-<%= link_to 'Back', products_path %>
+		<%= f.label :description %>
+		<%= f.text_area :description %>
+	
+		<%= f.label :price %>
+  	<%= f.text_field :price %>
+
+			<%= f.label :location %>
+  	<%= select("product", "location", City.all.collect { |c| [ c.name, c.name ]}) %>
+  	
+		<%= f.label :category_id %>
+		<%= select("product", "category_id", leaves.collect { |c| [ c.name, c.name ]}) %>				
+
+		<%= f.label :product_images, "Edit images for the product" %>
+  	<%= f.fields_for :product_images do |photo| %>
+  				
+    			<%= link_to( image_tag(photo.object.image.url(:thumb)), photo.object.image.url(:original) ) %>
+					<%= photo.check_box :_destroy %>		
+					<%= photo.label :_destroy, "Remove Image" %>
+    
+		<% end %>
+		
+		<br/>
+
+		<%= f.submit "Save", class: "btn btn-large btn-primary signup-button" %>
+	<% end %>
+</div>

@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    @use_sidebar = true
     @products = Product.where("ban = 0")
     if !params[:category_id].nil?
       @products = @products.where("category_id = ?",params[:category_id])
@@ -96,7 +97,6 @@ class ProductsController < ApplicationController
     elsif (current_user.seller_level == 'elite')
       10.times { @product.product_images.build }      
     end
-    render layout: "new_product"
 
   end
 

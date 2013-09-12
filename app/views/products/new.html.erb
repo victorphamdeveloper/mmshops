@@ -1,0 +1,33 @@
+<div class="span9 input-form">
+	<h1>New Product</h1>
+	<%= form_for(@product, :html => { :multipart => true },role: "form") do |f| %>
+
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+
+		<%= f.label :description %>
+		<%= f.text_area :description %>
+		
+		<%= f.label :price %>	
+  	<%= f.text_field :price %>
+
+		<%= f.label :location %>
+  	<%= select("product", "location", City.all.collect { |c| [ c.name, c.name ]}) %>
+  	
+		<%= f.label :category_id %>
+		<%= select("product", "category_id", leaves.collect { |c| [ c.name, c.name ]}) %>				
+		
+		<%= f.label :product_images, "Select images for the product" %>
+		<%= f.fields_for :product_images do |product_image| %>
+
+			<% if product_image.object.new_record? %>
+  			<%= product_image.file_field :image %>
+			<% end %>
+
+		<% end %>
+		
+		<br/>
+
+		<%= f.submit "Sell my product", class: "btn btn-large btn-primary signup-button" %>
+	<% end %>
+</div>

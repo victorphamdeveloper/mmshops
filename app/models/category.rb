@@ -15,7 +15,7 @@ class Category < ActiveRecord::Base
   has_many :products
   #has_many :products, through: :sub_categories
   has_ancestry
-  attr_accessible :name
+  attr_accessible :name, :parent_id
 
   def get_products
   	products = self.products.all
