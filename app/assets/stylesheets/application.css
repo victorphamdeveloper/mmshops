@@ -40,7 +40,7 @@ font-weight: bold;
 border-top: 1px solid #595;
 }
 
-#user_role, #product_location, #product_category_id {
+#user_role, #product_location, #user_location, #product_category_id {
 	min-height: 40px;
 }
 /* Common styles of menus */
