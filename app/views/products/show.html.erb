@@ -33,16 +33,16 @@
 
   <p>
     <b>Seller:</b>
-    <%= link_to @product.user.name, user_path(@product.user.id) %>
+    <%= link_to @product.user.name, user_path(@product.user.id) %> | <%= link_to "Chat with seller", messages_path(receiver_id: @product.user.id) %>
   </p>
-
+  <p>
+    <%= button_to 'Add to Cart', line_items_path(:product_id => @product.id), class: "btn btn-large btn-primary signup-button" %>
+  <br>
+    <%= button_to 'Buy now', line_items_path(:product_id => @product.id, buynow: "true"), class: "btn btn-large btn-primary signup-button" %>
+  </p>
   <% if signed_in? %>
     <% if !is_seller_of(@product) %>
-      <p>
-      <%= button_to 'Add to Cart', line_items_path(:product_id => @product.id), class: "btn btn-large btn-primary signup-button" %>
-      <br>
-      <%= button_to 'Buy now', line_items_path(:product_id => @product.id, buynow: "true"), class: "btn btn-large btn-primary signup-button" %>
-      </p>
+      
       <%= render 'shared/like_button' %>
       <br>
 

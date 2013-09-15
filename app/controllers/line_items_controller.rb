@@ -1,6 +1,8 @@
 class LineItemsController < ApplicationController
   # GET /line_items
   # GET /line_items.json
+  before_filter :signed_in_user
+
   def index
     @sell_line_items = LineItem.where("seller_id = ?", current_user.id)
     @buy_line_items = LineItem.where("buyer_id = ?", current_user.id)    

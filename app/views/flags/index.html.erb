@@ -13,8 +13,8 @@
 
 <% @flags.each do |flag| %>
   <tr>
-    <td><%= User.find(flag.user_id).name %></td>
-    <td><%= Product.find(flag.product_id).name %></td>   
+    <td><%= link_to User.find(flag.user_id).name, user_path(flag.user_id)  %></td>
+    <td><%= link_to Product.find(flag.product_id).name, product_path(flag.product_id) %></td>   
     <td><%= button_to 'Unflag', flag, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
     <td>
     <%= button_to 'Delete', product_path(flag.product_id), method: :delete , data: { confirm: "Are you sure?" },class: "btn-primary " %>
