@@ -10,12 +10,16 @@ class ProductsController < ApplicationController
     @use_sidebar = true
     @products = Product.where("ban = 0")
     if !params[:category_id].nil?
-      @products = @products.where("category_id = ?",params[:category_id])
-    elsif !params[:city].nil?
+      @products = @products.where("category_id = ? and location = ?",params[:category_id], city_filter())
+    end
+    if !params[:city].nil?
       @products = @products.where("location = ?",params[:city])
-    elsif params[:like] == "true"
+      cookies[:location] = params[:city];
+    end
+    if params[:like] == "true"
       @products = current_user.like_products
-    elsif !params[:sort_by].nil?
+    end
+    if !params[:sort_by].nil?
       if params[:sort_by] == "no_of_likes"
         @products = @products.sort{|a,b| b.likes.count <=> a.likes.count }
       elsif params[:sort_by] == "created_at"
@@ -25,9 +29,11 @@ class ProductsController < ApplicationController
       elsif params[:sort_by] == "price_high_low"
         @products = @products.order("price DESC")     
       end
-    elsif !params[:seller].nil?
+    end
+    if !params[:seller].nil?
       @products = @products.where("user_id = ?",params[:seller])
-    elsif params[:category_id].nil? and params[:city].nil? and params[:like] != "true" and params[:sort_by].nil?
+    end
+    if params[:category_id].nil? and params[:city].nil? and params[:like] != "true" and params[:sort_by].nil?
       @products = @products.order("created_at DESC")    
     end      
 

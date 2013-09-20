@@ -34,8 +34,8 @@ $(document).ready(function(){
 
   fade(document.body);*/
   	var x = document.getElementById("city_name");
-	x.onchange = function () {	
-		window.location.href = "/products?city=" + this.value;
+		x.onchange = function () {
+			window.location.href = "/products?city=" + this.value;
   	};
   
  

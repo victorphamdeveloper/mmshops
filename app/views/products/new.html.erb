@@ -15,7 +15,7 @@
   	<%= select("product", "location", City.all.collect { |c| [ c.name, c.name ]}) %>
   	
 		<%= f.label :category_id %>
-		<%= select("product", "category_id", leaves.collect { |c| [ c.name, c.name ]}) %>				
+		<%= select("product", "category_id", leaves.collect { |c| [ c.name, c.id ]}) %>				
 		
 		<%= f.label :product_images, "Select images for the product" %>
 		<%= f.fields_for :product_images do |product_image| %>

@@ -8,7 +8,7 @@
 								<li>
 									<div id="city-wrapper">
 										<label for="city">Choose your city</label>
-										<%= select("city", "name", City.all.collect {|c| [ c.name, c.name ] } ) %>
+										<%= select("city", "name", City.all.collect {|c| [ c.name, c.name ] }, selected: city_filter() ) %>
 									</div>				
 								</li>
 								<li>

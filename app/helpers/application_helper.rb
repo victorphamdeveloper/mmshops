@@ -16,6 +16,14 @@ module ApplicationHelper
 			"Admin"
 		end
 	end
+
+	def city_filter()
+		if current_user != nil
+			cookies[:location] ||= current_user.location
+		else
+			cookies[:location] ||= "Yangon"
+		end	
+	end
 	
 	def current_cart
 		Cart.find(session[:cart_id])
